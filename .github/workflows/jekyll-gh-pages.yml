@@ -46,7 +46,7 @@ jobs:
           path: './dist'
 
       - name: Setup CNAME
-        run: echo "starstream.itsmywork.site" > ./dist/CNAME
+        run: echo "tulsipada.itsmywork.site" > ./dist/CNAME
 
   deploy:
     environment:
