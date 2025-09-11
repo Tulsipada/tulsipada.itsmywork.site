@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tech-inspired portfolio design system with 3D elements support */
+
+@layer base {
+  :root {
+    /* Dark tech theme */
+    --background: 220 27% 8%;
+    --foreground: 210 40% 95%;
+
+    /* Card system with glassmorphism */
+    --card: 220 27% 12%;
+    --card-foreground: 210 40% 95%;
+    --card-glass: 220 27% 12% / 0.8;
+
+    --popover: 220 27% 12%;
+    --popover-foreground: 210 40% 95%;
+
+    /* Tech blue primary */
+    --primary: 217 100% 60%;
+    --primary-glow: 217 100% 70%;
+    --primary-foreground: 220 27% 8%;
+
+    /* Subtle secondary */
+    --secondary: 220 27% 16%;
+    --secondary-foreground: 210 40% 95%;
+
+    /* Muted elements */
+    --muted: 220 27% 14%;
+    --muted-foreground: 215 16% 65%;
+
+    /* Accent purple */
+    --accent: 270 100% 65%;
+    --accent-glow: 270 100% 75%;
+    --accent-foreground: 220 27% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Borders and inputs */
+    --border: 220 27% 18%;
+    --input: 220 27% 16%;
+    --ring: 217 100% 60%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--muted)));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--primary-glow)), hsl(var(--accent-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(220 27% 12%) 100%);
+
+    /* Shadows and glows */
+    --shadow-glow: 0 0 50px hsl(var(--primary) / 0.3);
+    --shadow-accent: 0 0 30px hsl(var(--accent) / 0.2);
+    --shadow-card: 0 8px 32px hsl(220 27% 4% / 0.5);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Light mode (optional fallback) */
+  .light {
+    --background: 210 40% 98%;
+    --foreground: 220 27% 8%;
+    --card: 210 40% 95%;
+    --card-foreground: 220 27% 8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-md border border-border/50;
+    box-shadow: var(--shadow-card);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  from { box-shadow: var(--shadow-glow); }
+  to { box-shadow: var(--shadow-accent); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}

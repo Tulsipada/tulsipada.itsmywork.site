@@ -1,0 +1,243 @@
+import { motion } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Calendar, ExternalLink, Github, Heart, ShoppingCart, Users, Briefcase, GamepadIcon } from "lucide-react";
+
+const projects = [
+  {
+    title: "CardApp",
+    period: "December 2022 - February 2023",
+    description: "Developed and maintained a robust buy and sell platform with comprehensive RESTful API design and efficient database management capabilities.",
+    icon: ShoppingCart,
+    technologies: ["Node.js", "RESTful APIs", "Database Management", "Backend Development"],
+    highlights: [
+      "Built scalable buy/sell platform architecture",
+      "Implemented secure transaction handling",
+      "Optimized database queries for performance"
+    ],
+    color: "from-blue-500 to-cyan-400"
+  },
+  {
+    title: "Reboundate",
+    period: "September 2022 - January 2023", 
+    description: "Designed and implemented a secure and scalable dating app featuring user authentication, intelligent swiping and matching algorithms, and real-time messaging.",
+    icon: Heart,
+    technologies: ["Node.js", "MySQL", "Real-time Messaging", "Authentication", "Matching Algorithms"],
+    highlights: [
+      "Real-time chat implementation",
+      "Advanced matching algorithms",
+      "Secure user authentication system"
+    ],
+    color: "from-pink-500 to-rose-400"
+  },
+  {
+    title: "CrewResume",
+    period: "August 2022 - December 2022",
+    description: "Developed and implemented the backend infrastructure of a comprehensive job searching portal focused on resume management and candidate screening.",
+    icon: Briefcase,
+    technologies: ["Node.js", "Resume Management", "Job Portal", "Scalable Architecture"],
+    highlights: [
+      "Scalable resume parsing system",
+      "Advanced search and filtering",
+      "Efficient candidate management"
+    ],
+    color: "from-green-500 to-emerald-400"
+  },
+  {
+    title: "NeedAGuy",
+    period: "July 2022 - November 2022",
+    description: "Developed a comprehensive web application that intelligently connects employers with job seekers based on their skills, experience, and compatibility.",
+    icon: Users,
+    technologies: ["Node.js", "Loopback", "MySQL", "Skill Matching"],
+    highlights: [
+      "Intelligent skill matching system",
+      "Automated employer-candidate pairing",
+      "Comprehensive profile management"
+    ],
+    color: "from-purple-500 to-violet-400"
+  },
+  {
+    title: "Brodough",
+    period: "June 2022 - September 2022",
+    description: "Designed and developed a feature-rich fantasy gaming application with dynamic gameplay mechanics, advanced social features, and performance optimization.",
+    icon: GamepadIcon,
+    technologies: ["Node.js", "Gaming Backend", "Social Features", "Performance Optimization"],
+    highlights: [
+      "Dynamic gameplay mechanics",
+      "Social interaction features",
+      "High-performance game backend"
+    ],
+    color: "from-orange-500 to-amber-400"
+  }
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut"
+    }
+  }
+};
+
+export const ProjectsSection = () => {
+  return (
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-background">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+            Featured Projects
+          </h2>
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
+            A showcase of innovative applications I've built, demonstrating expertise in Node.js, 
+            database management, and scalable architecture design
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+        >
+          {projects.map((project, index) => {
+            const Icon = project.icon;
+            return (
+              <motion.div
+                key={project.title}
+                variants={cardVariants}
+                whileHover={{ 
+                  scale: 1.03,
+                  rotateY: 5,
+                  rotateX: 5,
+                }}
+                className="h-full"
+              >
+                <Card className="glass-card hover:shadow-glow transition-all duration-500 h-full flex flex-col overflow-hidden group">
+                  {/* Project Icon Header */}
+                  <div className={`h-16 sm:h-20 bg-gradient-to-r ${project.color} flex items-center justify-center relative overflow-hidden`}>
+                    <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-white relative z-10" />
+                    <div className="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition-colors duration-300" />
+                  </div>
+
+                  <CardHeader className="pb-3 sm:pb-4">
+                    <div className="space-y-2">
+                      <CardTitle className="text-lg sm:text-xl text-primary group-hover:text-primary-glow transition-colors duration-300">
+                        {project.title}
+                      </CardTitle>
+                      <div className="flex items-center text-muted-foreground text-xs sm:text-sm gap-1">
+                        <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+                        {project.period}
+                      </div>
+                    </div>
+                  </CardHeader>
+
+                  <CardContent className="flex-1 flex flex-col space-y-4 sm:space-y-6">
+                    <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
+                      {project.description}
+                    </p>
+
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold text-foreground">Key Highlights</h4>
+                      <ul className="space-y-1">
+                        {project.highlights.map((highlight, highlightIndex) => (
+                          <li
+                            key={highlightIndex}
+                            className="text-xs sm:text-sm text-muted-foreground flex items-start gap-2"
+                          >
+                            <span className="text-primary text-xs mt-1">●</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="space-y-3 flex-1">
+                      <h4 className="text-sm font-semibold text-foreground">Technologies</h4>
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <Badge
+                            key={techIndex}
+                            variant="outline"
+                            className="text-xs border-primary/30 text-primary hover:bg-primary/10 transition-colors duration-200 px-2 py-1"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-3 sm:pt-4 border-t border-border/50">
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex-1 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-xs sm:text-sm"
+                          disabled
+                        >
+                          <Github className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                          Private
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex-1 border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 text-xs sm:text-sm"
+                          disabled
+                        >
+                          <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                          Enterprise
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="text-center mt-8 sm:mt-12"
+        >
+          <p className="text-muted-foreground mb-4 text-sm sm:text-base px-2 sm:px-0">
+            These projects represent enterprise-level applications with proprietary codebases
+          </p>
+          <Button
+            size="lg"
+            className="bg-gradient-primary hover:shadow-glow transition-all duration-300 w-full sm:w-auto"
+            asChild
+          >
+            <a href="mailto:tulsipada55@gmail.com">
+              Discuss Your Project
+            </a>
+          </Button>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
