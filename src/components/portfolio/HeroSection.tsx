@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Github, Linkedin, Mail, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { CSS3DProfile } from "./ProfileImage3D";
-import profileImage from "@/assets/profile-image.jpg";
+import profileImage from "@/assets/tulsipada.avif";
 
 function Stars(props: any) {
   const ref = useRef<any>();
