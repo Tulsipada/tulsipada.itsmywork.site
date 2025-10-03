@@ -27,9 +27,8 @@ export function detectDeviceCapabilities() {
 
 export function preloadCriticalResources() {
   // Only preload resources that are actually used immediately
-  const criticalResources = [
-    { href: '/src/index.css', as: 'style' }
-  ];
+  // Note: CSS is already bundled and included in the HTML, no need to preload
+  const criticalResources: Array<{ href: string; as: string }> = [];
 
   criticalResources.forEach(resource => {
     const link = document.createElement('link');
