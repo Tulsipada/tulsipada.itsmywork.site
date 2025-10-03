@@ -26,15 +26,17 @@ export function detectDeviceCapabilities() {
 }
 
 export function preloadCriticalResources() {
-  // Only preload resources that are actually used immediately
-  // Note: CSS is already bundled and included in the HTML, no need to preload
-  const criticalResources: Array<{ href: string; as: string }> = [];
+  // Preload critical CSS and fonts
+  const criticalResources = [
+    '/src/index.css',
+    '/src/assets/Tulsipada.avif'
+  ];
 
   criticalResources.forEach(resource => {
     const link = document.createElement('link');
     link.rel = 'preload';
-    link.href = resource.href;
-    link.as = resource.as;
+    link.href = resource;
+    link.as = resource.endsWith('.css') ? 'style' : 'image';
     document.head.appendChild(link);
   });
 }
