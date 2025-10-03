@@ -10,35 +10,30 @@ import { calculateExperience, processDynamicText } from "@/lib/experience";
 // Lazy load Framer Motion to reduce render blocking
 const motion = lazy(() => import("framer-motion").then(module => ({ default: module.motion })));
 
-// Lazy load Three.js components with faster trigger
-const ThreeJSBackground = lazy(() => 
-  new Promise<{ default: React.ComponentType }>(resolve => {
-    // Load Three.js faster to improve LCP
-    const loadThreeJS = () => {
-      import("./ThreeJSBackground").then(module => {
-        resolve({ default: module.default });
-      });
-    };
+// Import CSS background directly for immediate rendering
+import ThreeJSBackground from "./ThreeJSBackground";
 
-    // Load on first user interaction
-    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
-    const loadOnInteraction = () => {
-      loadThreeJS();
-      events.forEach(event => document.removeEventListener(event, loadOnInteraction));
-    };
-
-    events.forEach(event => document.addEventListener(event, loadOnInteraction, { once: true }));
-
-    // Faster fallback: load after 1.5 seconds to improve LCP
-    setTimeout(loadThreeJS, 1500);
-  })
-);
-
-// Enhanced CSS-based background fallback
+// Enhanced CSS-based background fallback - no JavaScript required
 const CSSBackground = () => (
   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(79,70,229,0.1),transparent_50%)]" />
     <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(79,70,229,0.05)_90deg,transparent_180deg,rgba(139,92,246,0.05)_270deg,transparent_360deg)] animate-spin-slow" />
+    
+    {/* CSS-only stars for better performance */}
+    <div className="absolute inset-0">
+      {Array.from({ length: 15 }, (_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 bg-primary rounded-full opacity-60 animate-pulse"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            animationDuration: `${2 + Math.random() * 2}s`,
+          }}
+        />
+      ))}
+    </div>
   </div>
 );
 
@@ -137,13 +132,11 @@ export const HeroSection = () => {
   });
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-16">
-      {/* 3D Background with fallback */}
-      <div className="absolute inset-0 z-0">
-        <Suspense fallback={<CSSBackground />}>
-          <ThreeJSBackground />
-        </Suspense>
-      </div>
+        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-16">
+          {/* CSS Background - no JavaScript required */}
+          <div className="absolute inset-0 z-0">
+            <ThreeJSBackground />
+          </div>
 
       {/* Content - render immediately without animations */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">

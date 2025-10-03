@@ -44,6 +44,7 @@ export function CSS3DProfile({ imageUrl }: CSS3DProfileProps) {
             width="192"
             height="192"
             sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
+            crossOrigin="anonymous"
             onLoad={() => setIsLoaded(true)}
             onError={() => {
               console.error('Failed to load profile image');

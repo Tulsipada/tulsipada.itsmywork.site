@@ -1,80 +1,53 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useRef, useMemo } from "react";
+import { useState, useEffect } from "react";
 
-// Ultra-minimal stars component - only 20 stars for maximum performance
-function MinimalStars() {
-  const ref = useRef<any>();
-  const [stars] = useMemo(() => {
-    // Drastically reduced to 20 stars for minimal main-thread impact
-    const starPositions = new Float32Array(20 * 3);
-    for (let i = 0; i < 20; i++) {
-      const radius = 1.5;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      starPositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      starPositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      starPositions[i * 3 + 2] = radius * Math.cos(phi);
-    }
-    return starPositions;
-  }, []);
-
-  useFrame((state, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x -= delta / 50; // Much slower rotation
-      ref.current.rotation.y -= delta / 60;
-    }
-  });
-
+// Pure CSS-based background with enhanced animations
+function CSSBackground() {
   return (
-    <group ref={ref} rotation={[0, 0, Math.PI / 4]}>
-      {Array.from({ length: 20 }, (_, i) => (
-        <mesh
-          key={i}
-          position={[
-            stars[i * 3],
-            stars[i * 3 + 1],
-            stars[i * 3 + 2],
-          ]}
-        >
-          <sphereGeometry args={[0.004]} />
-          <meshBasicMaterial color="#4F46E5" transparent opacity={0.5} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(79,70,229,0.1),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(79,70,229,0.05)_90deg,transparent_180deg,rgba(139,92,246,0.05)_270deg,transparent_360deg)] animate-spin-slow" />
 
-// Static cube - no animations to reduce main-thread work
-function StaticCube() {
-  return (
-    <mesh position={[1.2, 0, 0]}>
-      <boxGeometry args={[0.1, 0.1, 0.1]} />
-      <meshBasicMaterial color="#8B5CF6" wireframe />
-    </mesh>
+      {/* Enhanced CSS-only stars for better performance */}
+      <div className="absolute inset-0">
+        {Array.from({ length: 20 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-primary rounded-full opacity-60 animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Floating geometric shapes */}
+      <div className="absolute inset-0">
+        {Array.from({ length: 3 }, (_, i) => (
+          <div
+            key={`shape-${i}`}
+            className="absolute w-2 h-2 border border-primary/30 rounded-sm opacity-40 animate-pulse"
+            style={{
+              left: `${20 + i * 30}%`,
+              top: `${30 + i * 20}%`,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${3 + i}s`,
+              transform: `rotate(${i * 45}deg)`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Subtle moving gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent animate-pulse opacity-30" />
+    </div>
   );
 }
 
 export default function ThreeJSBackground() {
-  return (
-    <Canvas 
-      camera={{ position: [0, 0, 1] }}
-      dpr={[1, 1]} // Limit device pixel ratio
-      performance={{ min: 0.9 }} // Very high performance threshold
-      gl={{ 
-        antialias: false,
-        alpha: true,
-        powerPreference: "low-power",
-        stencil: false,
-        depth: false,
-        preserveDrawingBuffer: false, // Reduce memory usage
-        failIfMajorPerformanceCaveat: true, // Fail if performance is poor
-      }}
-    >
-      <Suspense fallback={null}>
-        <MinimalStars />
-        <StaticCube />
-        <ambientLight intensity={0.1} />
-      </Suspense>
-    </Canvas>
-  );
+  // Use pure CSS background for maximum compatibility and performance
+  return <CSSBackground />;
 }
