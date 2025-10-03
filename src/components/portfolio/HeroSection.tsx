@@ -1,4 +1,4 @@
-import { Suspense, useRef, useMemo, lazy } from "react";
+import { Suspense, useRef, useMemo, lazy, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
@@ -8,13 +8,35 @@ import profileImage from "@/assets/Tulsipada.avif";
 import personalData from "@/data/personal.json";
 import { calculateExperience, processDynamicText } from "@/lib/experience";
 
-// Lazy load Three.js components
-const ThreeJSBackground = lazy(() => import("./ThreeJSBackground"));
+// Lazy load Three.js components with user interaction trigger
+const ThreeJSBackground = lazy(() => 
+  new Promise<{ default: React.ComponentType }>(resolve => {
+    // Only load Three.js after user interaction or 3 seconds
+    const loadThreeJS = () => {
+      import("./ThreeJSBackground").then(module => {
+        resolve({ default: module.default });
+      });
+    };
 
-// Simple CSS-based background fallback
+    // Load on first user interaction
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+    const loadOnInteraction = () => {
+      loadThreeJS();
+      events.forEach(event => document.removeEventListener(event, loadOnInteraction));
+    };
+
+    events.forEach(event => document.addEventListener(event, loadOnInteraction, { once: true }));
+
+    // Fallback: load after 3 seconds if no interaction
+    setTimeout(loadThreeJS, 3000);
+  })
+);
+
+// Enhanced CSS-based background fallback
 const CSSBackground = () => (
   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(79,70,229,0.1),transparent_50%)]" />
+    <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(79,70,229,0.05)_90deg,transparent_180deg,rgba(139,92,246,0.05)_270deg,transparent_360deg)] animate-spin-slow" />
   </div>
 );
 

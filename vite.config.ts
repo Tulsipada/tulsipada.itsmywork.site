@@ -18,27 +18,64 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: 'inline', // Generate inline source maps for GitHub Pages compatibility
-    minify: mode === 'production',
+    sourcemap: mode === 'development' ? 'inline' : false,
+    minify: mode === 'production' ? 'esbuild' : false,
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-slot', '@radix-ui/react-toast', '@radix-ui/react-tooltip', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
-          motion: ['framer-motion'],
-          icons: ['lucide-react'],
-          router: ['react-router-dom'],
+          // Core React chunks - keep everything React-related together
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          // UI components chunk
+          'ui-components': ['@radix-ui/react-slot', '@radix-ui/react-toast', '@radix-ui/react-tooltip', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', 'class-variance-authority', 'clsx', 'tailwind-merge'],
+          // Three.js chunk (completely separate)
+          'three-js': ['three', '@react-three/fiber', '@react-three/drei'],
+          // Animation libraries
+          'animations': ['framer-motion'],
+          // Icons
+          'icons': ['lucide-react'],
         },
         // Optimize chunk sizes
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.');
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+            return `assets/images/[name]-[hash][extname]`;
+          }
+          if (/woff2?|eot|ttf|otf/i.test(ext)) {
+            return `assets/fonts/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
+        },
       },
     },
     // Optimize for GitHub Pages
     target: 'esnext',
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500,
+    // Enable compression
+    reportCompressedSize: true,
+    // Optimize assets
+    assetsInlineLimit: 4096,
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'framer-motion',
+      'lucide-react',
+      '@radix-ui/react-slot',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge'
+    ],
+    exclude: [
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei'
+    ]
   },
 }));
