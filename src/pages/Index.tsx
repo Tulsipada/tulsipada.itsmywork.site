@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/portfolio/HeroSection";
 import { Navbar } from "@/components/portfolio/Navbar";
 import { Footer } from "@/components/portfolio/Footer";
 
-// Lazy load sections for better performance with preloading
+// Lazy load sections for better performance
 const AboutSection = lazy(() => import("@/components/portfolio/AboutSection").then(module => ({ default: module.AboutSection })));
 const ExperienceSection = lazy(() => import("@/components/portfolio/ExperienceSection").then(module => ({ default: module.ExperienceSection })));
 const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection").then(module => ({ default: module.ProjectsSection })));
