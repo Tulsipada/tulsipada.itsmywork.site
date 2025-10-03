@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => ({
           'ui-essential': ['@radix-ui/react-slot', '@radix-ui/react-tooltip', 'class-variance-authority', 'clsx', 'tailwind-merge'],
           // Three.js chunk (completely separate)
           'three-js': ['three', '@react-three/fiber', '@react-three/drei'],
-          // Animation libraries
+          // Animation libraries - lazy loaded
           'animations': ['framer-motion'],
           // Icons
           'icons': ['lucide-react'],
@@ -65,7 +65,6 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react-router-dom',
-      'framer-motion',
       'lucide-react',
       '@radix-ui/react-slot',
       '@radix-ui/react-tooltip',
@@ -76,7 +75,8 @@ export default defineConfig(({ mode }) => ({
     exclude: [
       'three',
       '@react-three/fiber',
-      '@react-three/drei'
+      '@react-three/drei',
+      'framer-motion' // Exclude from initial bundle
     ]
   },
 }));
