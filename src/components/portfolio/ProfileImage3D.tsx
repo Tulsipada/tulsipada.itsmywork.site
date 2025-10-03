@@ -51,9 +51,10 @@ export function CSS3DProfile({ imageUrl }: CSS3DProfileProps) {
               setIsLoaded(true);
             }}
             style={{
-              imageRendering: 'optimizeQuality',
+              imageRendering: 'optimizeSpeed',
               backfaceVisibility: 'hidden',
               transform: 'translateZ(0)',
+              willChange: 'auto',
             }}
           />
           

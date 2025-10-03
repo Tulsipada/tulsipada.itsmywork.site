@@ -1,4 +1,3 @@
-import { Suspense, useRef, useMemo, lazy, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
@@ -6,9 +5,6 @@ import { CSS3DProfile } from "./ProfileImage3D";
 import profileImage from "@/assets/Tulsipada.avif";
 import personalData from "@/data/personal.json";
 import { calculateExperience, processDynamicText } from "@/lib/experience";
-
-// Lazy load Framer Motion to reduce render blocking
-const motion = lazy(() => import("framer-motion").then(module => ({ default: module.motion })));
 
 // Import CSS background directly for immediate rendering
 import ThreeJSBackground from "./ThreeJSBackground";
