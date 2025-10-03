@@ -5,8 +5,8 @@ import { Points, PointMaterial } from "@react-three/drei";
 function Stars(props: any) {
   const ref = useRef<any>();
   const [sphere] = useMemo(() => {
-    const points = new Float32Array(5000 * 3);
-    for (let i = 0; i < 5000; i++) {
+    const points = new Float32Array(2000 * 3);
+    for (let i = 0; i < 2000; i++) {
       const radius = 1.5;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);

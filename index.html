@@ -22,10 +22,51 @@
 
     <link rel="canonical" href="https://tulsipada.in" />
     
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+      /* Critical styles for initial render */
+      body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+      #root { min-height: 100vh; }
+      .hero-section { 
+        min-height: 100vh; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+      }
+      .profile-image { 
+        width: 128px; 
+        height: 128px; 
+        border-radius: 50%; 
+        object-fit: cover; 
+        border: 2px solid rgba(79, 70, 229, 0.5);
+      }
+      .hero-title { 
+        font-size: 2rem; 
+        font-weight: bold; 
+        background: linear-gradient(45deg, #4f46e5, #06b6d4); 
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent; 
+        background-clip: text;
+      }
+      @media (min-width: 640px) {
+        .profile-image { width: 160px; height: 160px; }
+        .hero-title { font-size: 3rem; }
+      }
+      @media (min-width: 768px) {
+        .profile-image { width: 192px; height: 192px; }
+        .hero-title { font-size: 4rem; }
+      }
+    </style>
+    
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//github.com" />
     <link rel="dns-prefetch" href="//linkedin.com" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/assets/Tulsipada.avif" as="image" type="image/avif" />
+    <link rel="preload" href="/src/main.tsx" as="script" />
   </head>
 
   <body>
