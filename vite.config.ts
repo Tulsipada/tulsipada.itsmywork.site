@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: mode === 'development',
+    sourcemap: true, // Generate source maps for production
     minify: mode === 'production',
     rollupOptions: {
       output: {
@@ -34,6 +34,8 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
+        // Generate source maps for all chunks
+        sourcemapFileNames: 'assets/[name]-[hash].js.map',
       },
     },
     // Optimize for GitHub Pages
