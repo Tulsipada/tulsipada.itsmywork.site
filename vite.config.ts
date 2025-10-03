@@ -25,8 +25,8 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Core React chunks - keep everything React-related together
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          // UI components chunk
-          'ui-components': ['@radix-ui/react-slot', '@radix-ui/react-toast', '@radix-ui/react-tooltip', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', 'class-variance-authority', 'clsx', 'tailwind-merge'],
+          // Essential UI components only
+          'ui-essential': ['@radix-ui/react-slot', '@radix-ui/react-tooltip', 'class-variance-authority', 'clsx', 'tailwind-merge'],
           // Three.js chunk (completely separate)
           'three-js': ['three', '@react-three/fiber', '@react-three/drei'],
           // Animation libraries
@@ -68,6 +68,7 @@ export default defineConfig(({ mode }) => ({
       'framer-motion',
       'lucide-react',
       '@radix-ui/react-slot',
+      '@radix-ui/react-tooltip',
       'class-variance-authority',
       'clsx',
       'tailwind-merge'

@@ -8,10 +8,10 @@ import profileImage from "@/assets/Tulsipada.avif";
 import personalData from "@/data/personal.json";
 import { calculateExperience, processDynamicText } from "@/lib/experience";
 
-// Lazy load Three.js components with user interaction trigger
+// Lazy load Three.js components with faster trigger
 const ThreeJSBackground = lazy(() => 
   new Promise<{ default: React.ComponentType }>(resolve => {
-    // Only load Three.js after user interaction or 3 seconds
+    // Load Three.js faster to improve LCP
     const loadThreeJS = () => {
       import("./ThreeJSBackground").then(module => {
         resolve({ default: module.default });
@@ -27,8 +27,8 @@ const ThreeJSBackground = lazy(() =>
 
     events.forEach(event => document.addEventListener(event, loadOnInteraction, { once: true }));
 
-    // Fallback: load after 3 seconds if no interaction
-    setTimeout(loadThreeJS, 3000);
+    // Faster fallback: load after 1.5 seconds to improve LCP
+    setTimeout(loadThreeJS, 1500);
   })
 );
 

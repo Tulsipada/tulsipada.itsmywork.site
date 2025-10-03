@@ -52,12 +52,21 @@ export function CSS3DProfile({ imageUrl }: CSS3DProfileProps) {
             className="w-full h-full object-cover"
             loading="eager"
             fetchPriority="high"
-            decoding="async"
+            decoding="sync"
             width="192"
             height="192"
             sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
             onLoad={() => setIsLoaded(true)}
-            onError={() => console.error('Failed to load profile image')}
+            onError={() => {
+              console.error('Failed to load profile image');
+              setIsLoaded(true); // Show fallback even on error
+            }}
+            style={{
+              // Optimize rendering
+              imageRendering: 'optimizeQuality',
+              backfaceVisibility: 'hidden',
+              transform: 'translateZ(0)', // Force hardware acceleration
+            }}
           />
           
           {/* Overlay gradient */}

@@ -24,23 +24,38 @@
     
     <!-- Critical CSS for above-the-fold content -->
     <style>
-      /* Critical styles for initial render */
-      body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+      /* Critical styles for initial render - optimized for LCP */
+      body { 
+        margin: 0; 
+        font-family: system-ui, -apple-system, sans-serif; 
+        background: #0f0f23;
+        color: #ffffff;
+      }
       #root { min-height: 100vh; }
+      
+      /* Hero section critical styles */
       .hero-section { 
         min-height: 100vh; 
         display: flex; 
         align-items: center; 
         justify-content: center; 
         background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+        position: relative;
+        overflow: hidden;
       }
+      
+      /* Profile image critical styles */
       .profile-image { 
         width: 128px; 
         height: 128px; 
         border-radius: 50%; 
         object-fit: cover; 
         border: 2px solid rgba(79, 70, 229, 0.5);
+        display: block;
+        margin: 0 auto;
       }
+      
+      /* Hero title critical styles - LCP element */
       .hero-title { 
         font-size: 2rem; 
         font-weight: bold; 
@@ -48,7 +63,12 @@
         -webkit-background-clip: text; 
         -webkit-text-fill-color: transparent; 
         background-clip: text;
+        text-align: center;
+        margin: 0;
+        line-height: 1.2;
       }
+      
+      /* Responsive styles */
       @media (min-width: 640px) {
         .profile-image { width: 160px; height: 160px; }
         .hero-title { font-size: 3rem; }
@@ -56,6 +76,24 @@
       @media (min-width: 768px) {
         .profile-image { width: 192px; height: 192px; }
         .hero-title { font-size: 4rem; }
+      }
+      @media (min-width: 1024px) {
+        .hero-title { font-size: 5rem; }
+      }
+      
+      /* Loading states */
+      .loading-spinner {
+        width: 24px;
+        height: 24px;
+        border: 2px solid rgba(79, 70, 229, 0.3);
+        border-top: 2px solid #4f46e5;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
     </style>
     
@@ -65,7 +103,7 @@
     <link rel="dns-prefetch" href="//linkedin.com" />
     
     <!-- Preload critical resources -->
-    <link rel="preload" href="/src/assets/Tulsipada.avif" as="image" type="image/avif" />
+    <link rel="preload" href="/src/assets/Tulsipada.avif" as="image" type="image/avif" fetchpriority="high" />
     
     <!-- Resource hints for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
