@@ -1,4 +1,4 @@
-import { Suspense, useRef, useMemo, lazy } from "react";
+import { Suspense, useRef, useMemo, lazy, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
@@ -7,31 +7,48 @@ import { CSS3DProfile } from "./ProfileImage3D";
 import profileImage from "@/assets/Tulsipada.avif";
 import personalData from "@/data/personal.json";
 import { calculateExperience, processDynamicText } from "@/lib/experience";
+import { detectDeviceCapabilities } from "@/utils/performance";
 
-// Lazy load Three.js components
-const ThreeJSBackground = lazy(() => import("./ThreeJSBackground"));
+// Lazy load CSS background components
+const AdvancedCSSBackground = lazy(() => import("./AdvancedCSSBackground"));
 
-// Simple CSS-based background fallback
-const CSSBackground = () => (
+// Simple fallback for when both fail
+const SimpleBackground = () => (
   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(79,70,229,0.1),transparent_50%)]" />
   </div>
 );
 
 export const HeroSection = () => {
+  const [backgroundType, setBackgroundType] = useState<'css' | 'simple'>('css');
+  
   // Calculate dynamic experience
   const experienceYears = calculateExperience(personalData.personalInfo.careerStartDate);
   const dynamicDescription = processDynamicText(personalData.personalInfo.description, {
     experience: experienceYears
   });
 
+  // Detect device capabilities and choose appropriate background
+  useEffect(() => {
+    const capabilities = detectDeviceCapabilities();
+    
+    if (!capabilities.prefersReducedMotion) {
+      setBackgroundType('css');
+    } else {
+      setBackgroundType('simple');
+    }
+  }, []);
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-16">
-      {/* 3D Background with fallback */}
+      {/* Intelligent Background Selection */}
       <div className="absolute inset-0 z-0">
-        <Suspense fallback={<CSSBackground />}>
-          <ThreeJSBackground />
-        </Suspense>
+        {backgroundType === 'css' && (
+          <Suspense fallback={<SimpleBackground />}>
+            <AdvancedCSSBackground />
+          </Suspense>
+        )}
+        {backgroundType === 'simple' && <SimpleBackground />}
       </div>
 
       {/* Content */}
