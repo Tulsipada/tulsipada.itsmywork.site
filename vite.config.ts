@@ -28,7 +28,6 @@ export default defineConfig(({ mode }) => ({
           three: ['three', '@react-three/fiber', '@react-three/drei'],
           motion: ['framer-motion'],
           icons: ['lucide-react'],
-          query: ['@tanstack/react-query'],
         },
       },
     },
