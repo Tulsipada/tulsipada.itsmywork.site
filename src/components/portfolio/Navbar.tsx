@@ -71,6 +71,8 @@ export const Navbar = () => {
           ? "bg-background/80 backdrop-blur-md border-b border-border/50 shadow-lg"
           : "bg-transparent"
       }`}
+      role="navigation"
+      aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -118,11 +120,13 @@ export const Navbar = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Visit ${social.name} profile`}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className="p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
                 >
                   <Icon className="h-4 w-4" />
+                  <span className="sr-only">{social.name}</span>
                 </motion.a>
               );
             })}
@@ -136,11 +140,14 @@ export const Navbar = () => {
                   variant="ghost"
                   size="sm"
                   className="p-2"
+                  aria-label="Open navigation menu"
+                  aria-expanded={isMobileMenuOpen}
+                  aria-controls="mobile-navigation"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[320px] sm:w-[400px]">
+              <SheetContent side="right" className="w-[320px] sm:w-[400px]" id="mobile-navigation">
                 <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
                   <div className="flex items-center justify-between mb-8">
@@ -184,11 +191,12 @@ export const Navbar = () => {
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
+                            aria-label={`Visit ${social.name} profile`}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="flex items-center space-x-3 p-3 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 w-full"
                           >
-                            <Icon className="h-5 w-5 flex-shrink-0" />
+                            <Icon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
                             <span className="text-sm font-medium">{social.name}</span>
                           </motion.a>
                         );

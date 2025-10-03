@@ -209,11 +209,13 @@ const ContactSection = memo(() => {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Visit ${social.label} profile`}
                         whileHover={{ scale: 1.1, rotateZ: 5 }}
                         whileTap={{ scale: 0.95 }}
                         className={`p-3 sm:p-4 rounded-full bg-secondary/50 text-muted-foreground ${social.color} transition-all duration-300 hover:shadow-accent`}
                       >
-                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+                        <span className="sr-only">{social.label}</span>
                       </motion.a>
                     );
                   })}
