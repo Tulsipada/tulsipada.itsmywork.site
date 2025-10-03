@@ -1,21 +1,24 @@
 // Service Worker for caching and performance optimization
-const CACHE_NAME = 'tulsipada-portfolio-v2';
-const STATIC_CACHE = 'static-cache-v2';
-const DYNAMIC_CACHE = 'dynamic-cache-v2';
+const CACHE_NAME = 'tulsipada-portfolio-v3';
+const STATIC_CACHE = 'static-cache-v3';
+const DYNAMIC_CACHE = 'dynamic-cache-v3';
 
-// Files to cache immediately
+// Files to cache immediately - only critical resources
 const STATIC_FILES = [
   '/',
   '/index.html',
-  '/src/main.tsx',
-  '/src/App.tsx',
-  '/src/pages/Index.tsx',
-  '/src/components/portfolio/HeroSection.tsx',
-  '/src/components/portfolio/Navbar.tsx',
-  '/src/components/portfolio/Footer.tsx',
-  '/src/assets/Tulsipada.avif',
-  '/src/index.css'
+  '/src/assets/Tulsipada.avif'
 ];
+
+// Cache strategies
+const CACHE_STRATEGIES = {
+  // Cache first for static assets
+  'static': ['css', 'js', 'png', 'jpg', 'jpeg', 'gif', 'svg', 'avif', 'woff', 'woff2'],
+  // Network first for API calls
+  'network': ['api'],
+  // Stale while revalidate for HTML
+  'stale': ['html', 'document']
+};
 
 // Install event - cache static files
 self.addEventListener('install', (event) => {
@@ -47,7 +50,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - optimized caching strategies
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') {
@@ -59,34 +62,51 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request)
-          .then((fetchResponse) => {
-            // Don't cache if not a valid response
-            if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
-              return fetchResponse;
+  const url = new URL(event.request.url);
+  const pathname = url.pathname;
+  
+  // Determine cache strategy based on file type
+  if (CACHE_STRATEGIES.static.some(ext => pathname.includes(`.${ext}`))) {
+    // Cache first for static assets
+    event.respondWith(
+      caches.match(event.request)
+        .then(response => response || fetch(event.request)
+          .then(fetchResponse => {
+            if (fetchResponse.status === 200) {
+              const responseClone = fetchResponse.clone();
+              caches.open(STATIC_CACHE).then(cache => cache.put(event.request, responseClone));
             }
-
-            // Clone the response
-            const responseToCache = fetchResponse.clone();
-
-            // Cache dynamic content
-            caches.open(DYNAMIC_CACHE)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-
             return fetchResponse;
           })
-          .catch(() => {
-            // Return offline page if available
-            if (event.request.destination === 'document') {
-              return caches.match('/');
+        )
+    );
+  } else if (pathname === '/' || pathname === '/index.html') {
+    // Stale while revalidate for HTML
+    event.respondWith(
+      caches.match(event.request)
+        .then(response => {
+          const fetchPromise = fetch(event.request).then(fetchResponse => {
+            if (fetchResponse.status === 200) {
+              const responseClone = fetchResponse.clone();
+              caches.open(DYNAMIC_CACHE).then(cache => cache.put(event.request, responseClone));
             }
+            return fetchResponse;
           });
-      })
-  );
+          return response || fetchPromise;
+        })
+    );
+  } else {
+    // Network first for other requests
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(DYNAMIC_CACHE).then(cache => cache.put(event.request, responseClone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+  }
 });

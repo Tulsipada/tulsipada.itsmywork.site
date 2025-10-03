@@ -4,6 +4,18 @@ export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
+  safelist: [
+    // Only include classes we actually use
+    'bg-gradient-primary',
+    'bg-gradient-hero',
+    'text-primary-glow',
+    'shadow-glow',
+    'animate-spin-slow',
+    'animate-pulse',
+    'animate-bounce',
+    'glass-card',
+    'glow-text'
+  ],
   theme: {
     container: {
       center: true,

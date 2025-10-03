@@ -20,6 +20,7 @@ export default defineConfig(({ mode }) => ({
     assetsDir: 'assets',
     sourcemap: mode === 'development' ? 'inline' : false,
     minify: mode === 'production' ? 'esbuild' : false,
+    cssMinify: mode === 'production',
     rollupOptions: {
       output: {
         manualChunks: {

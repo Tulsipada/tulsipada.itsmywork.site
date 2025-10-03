@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Purge unused CSS - only include what we actually use */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
 /* Tech-inspired portfolio design system with 3D elements support */
 
 @layer base {
