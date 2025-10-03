@@ -26,17 +26,16 @@ export function detectDeviceCapabilities() {
 }
 
 export function preloadCriticalResources() {
-  // Preload critical CSS and fonts
+  // Only preload resources that are actually used immediately
   const criticalResources = [
-    '/src/index.css',
-    '/src/assets/Tulsipada.avif'
+    { href: '/src/index.css', as: 'style' }
   ];
 
   criticalResources.forEach(resource => {
     const link = document.createElement('link');
     link.rel = 'preload';
-    link.href = resource;
-    link.as = resource.endsWith('.css') ? 'style' : 'image';
+    link.href = resource.href;
+    link.as = resource.as;
     document.head.appendChild(link);
   });
 }

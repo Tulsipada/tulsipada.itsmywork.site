@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Core React libraries - split further
+          // Core React libraries
           if (id.includes('react/') && !id.includes('react-dom')) {
             return 'react-core';
           }
@@ -33,26 +33,9 @@ export default defineConfig(({ mode }) => ({
             return 'react-dom';
           }
           
-          // Three.js libraries - only load when explicitly imported
-          if (id.includes('three/build/three')) {
-            return 'three-core';
-          }
-          if (id.includes('@react-three/fiber')) {
-            return 'three-fiber';
-          }
-          if (id.includes('@react-three/drei')) {
-            return 'three-drei';
-          }
-          
-          // UI components - split by category
-          if (id.includes('@radix-ui/react-slot') || id.includes('@radix-ui/react-toast') || id.includes('@radix-ui/react-tooltip')) {
-            return 'ui-core';
-          }
-          if (id.includes('@radix-ui/react-dialog') || id.includes('@radix-ui/react-dropdown-menu') || id.includes('@radix-ui/react-popover')) {
-            return 'ui-overlay';
-          }
-          if (id.includes('@radix-ui/react-accordion') || id.includes('@radix-ui/react-tabs') || id.includes('@radix-ui/react-collapsible')) {
-            return 'ui-layout';
+          // UI components - keep all Radix UI together to avoid dependency issues
+          if (id.includes('@radix-ui')) {
+            return 'ui-vendor';
           }
           if (id.includes('lucide-react')) {
             return 'ui-icons';
