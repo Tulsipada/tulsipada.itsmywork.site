@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Globe, Github, Linkedin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, Send, User, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
-import { memo } from "react";
+import { memo, useState } from "react";
 import contactData from "@/data/contact.json";
 
 // Icon mapping for dynamic imports
@@ -15,9 +15,9 @@ const iconMap = {
   Phone,
   MapPin,
   Globe,
-  Github,
-  Linkedin,
-  Send
+  Send,
+  User,
+  MessageSquare
 };
 
 const contactInfo = contactData.contactInfo.map(info => ({
@@ -25,131 +25,241 @@ const contactInfo = contactData.contactInfo.map(info => ({
   icon: iconMap[info.icon as keyof typeof iconMap]
 }));
 
-const socialLinks = contactData.socialLinks.map(social => ({
-  ...social,
-  icon: iconMap[social.icon as keyof typeof iconMap]
-}));
-
 const ContactSection = memo(() => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     toast.success(contactData.form.successMessage.title, {
       description: contactData.form.successMessage.description
     });
+    
+    setIsSubmitting(false);
+    // Reset form
+    (e.target as HTMLFormElement).reset();
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-secondary/10 to-background relative overflow-hidden">
-      {/* CSS-only animated background element instead of WebGL */}
-      <div className="absolute top-10 sm:top-20 right-5 sm:right-10 w-32 h-32 sm:w-64 sm:h-64 opacity-20 pointer-events-none">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-secondary/5 to-background relative overflow-hidden">
+      {/* Enhanced animated background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="w-full h-full border-2 border-primary/30 rounded-full"
+          className="absolute top-20 right-10 w-32 h-32 sm:w-48 sm:h-48 opacity-5"
           animate={{ 
             rotate: 360,
-            scale: [1, 1.1, 1],
+            scale: [1, 1.2, 1],
           }}
           transition={{
             rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+            scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
           }}
-        />
+        >
+          <div className="w-full h-full border-2 border-primary/20 rounded-full" />
+        </motion.div>
+        
         <motion.div
-          className="absolute inset-4 sm:inset-8 border border-accent/40 rounded-full"
+          className="absolute bottom-20 left-10 w-24 h-24 sm:w-36 sm:h-36 opacity-5"
           animate={{ 
             rotate: -360,
-            scale: [1.1, 1, 1.1],
+            scale: [1.2, 1, 1.2],
           }}
           transition={{
             rotate: { duration: 15, repeat: Infinity, ease: "linear" },
-            scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
           }}
-        />
+        >
+          <div className="w-full h-full border-2 border-accent/20 rounded-full" />
+        </motion.div>
+
+        {/* Floating particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-primary/10 rounded-full"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${30 + i * 10}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.5,
+            }}
+          />
+        ))}
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-16 sm:mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-            {contactData.title}
+          <motion.div
+            initial={{ scale: 0.8 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="inline-block"
+          >
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent mb-6">
+              {contactData.title}
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed"
+          >
             {contactData.description}
-          </p>
+          </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
+        <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-stretch">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="flex"
           >
-            <Card className="glass-card hover:shadow-glow transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="text-xl sm:text-2xl text-primary flex items-center gap-2">
-                  <Send className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Card className="glass-card hover:shadow-glow transition-all duration-500 flex-1 border-primary/10">
+              <CardHeader className="pb-6 bg-gradient-to-r from-primary/5 to-accent/5 rounded-t-lg">
+                <CardTitle className="text-2xl sm:text-3xl text-primary flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Send className="h-6 w-6" />
+                  </div>
                   {contactData.form.title}
                 </CardTitle>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Fill out the form below and I'll get back to you as soon as possible
+                </p>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-sm sm:text-base">{contactData.form.fields.name.label}</Label>
+              <CardContent className="p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="space-y-2"
+                    >
+                      <Label htmlFor="name" className="text-sm font-semibold text-foreground flex items-center gap-2">
+                        <User className="h-4 w-4 text-primary" />
+                        {contactData.form.fields.name.label}
+                      </Label>
                       <Input 
                         id="name" 
                         placeholder={contactData.form.fields.name.placeholder}
                         required={contactData.form.fields.name.required}
-                        className="border-border/50 focus:border-primary text-sm sm:text-base"
+                        className="border-border/50 focus:border-primary focus:ring-primary/20 transition-all duration-300 h-12 bg-secondary/20 hover:bg-secondary/30"
                       />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-sm sm:text-base">{contactData.form.fields.email.label}</Label>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="space-y-2"
+                    >
+                      <Label htmlFor="email" className="text-sm font-semibold text-foreground flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-primary" />
+                        {contactData.form.fields.email.label}
+                      </Label>
                       <Input 
                         id="email" 
                         type={contactData.form.fields.email.type}
                         placeholder={contactData.form.fields.email.placeholder}
                         required={contactData.form.fields.email.required}
-                        className="border-border/50 focus:border-primary text-sm sm:text-base"
+                        className="border-border/50 focus:border-primary focus:ring-primary/20 transition-all duration-300 h-12 bg-secondary/20 hover:bg-secondary/30"
                       />
-                    </div>
+                    </motion.div>
                   </div>
                   
-                  <div className="space-y-2">
-                    <Label htmlFor="subject" className="text-sm sm:text-base">{contactData.form.fields.subject.label}</Label>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="space-y-2"
+                  >
+                    <Label htmlFor="subject" className="text-sm font-semibold text-foreground flex items-center gap-2">
+                      <MessageSquare className="h-4 w-4 text-primary" />
+                      {contactData.form.fields.subject.label}
+                    </Label>
                     <Input 
                       id="subject" 
                       placeholder={contactData.form.fields.subject.placeholder}
                       required={contactData.form.fields.subject.required}
-                      className="border-border/50 focus:border-primary text-sm sm:text-base"
+                      className="border-border/50 focus:border-primary focus:ring-primary/20 transition-all duration-300 h-12 bg-secondary/20 hover:bg-secondary/30"
                     />
-                  </div>
+                  </motion.div>
                   
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="text-sm sm:text-base">{contactData.form.fields.message.label}</Label>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="space-y-2"
+                  >
+                    <Label htmlFor="message" className="text-sm font-semibold text-foreground flex items-center gap-2">
+                      <MessageSquare className="h-4 w-4 text-primary" />
+                      {contactData.form.fields.message.label}
+                    </Label>
                     <Textarea 
                       id="message" 
                       placeholder={contactData.form.fields.message.placeholder}
                       rows={contactData.form.fields.message.rows}
                       required={contactData.form.fields.message.required}
-                      className="border-border/50 focus:border-primary resize-none text-sm sm:text-base"
+                      className="border-border/50 focus:border-primary focus:ring-primary/20 resize-none transition-all duration-300 bg-secondary/20 hover:bg-secondary/30 min-h-[120px]"
                     />
-                  </div>
+                  </motion.div>
                   
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                  >
                   <Button 
                     type="submit" 
                     size="lg" 
-                    className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 hover:scale-[1.02]"
-                  >
-                    <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    {contactData.form.submitButton.text}
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 hover:shadow-glow transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed h-14 text-lg font-semibold"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            className="mr-3 h-5 w-5 border-2 border-white border-t-transparent rounded-full"
+                          />
+                          Sending Message...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-3 h-5 w-5" />
+                          {contactData.form.submitButton.text}
+                        </>
+                      )}
                   </Button>
+                  </motion.div>
                 </form>
               </CardContent>
             </Card>
@@ -157,17 +267,26 @@ const ContactSection = memo(() => {
 
           {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="flex"
           >
-            <Card className="glass-card">
-              <CardHeader>
-                <CardTitle className="text-xl sm:text-2xl text-primary">Get In Touch</CardTitle>
+            {/* Contact Info Card */}
+            <Card className="glass-card border-accent/10 hover:shadow-glow transition-all duration-500 flex-1">
+              <CardHeader className="pb-6 bg-gradient-to-r from-accent/5 to-primary/5 rounded-t-lg">
+                <CardTitle className="text-2xl sm:text-3xl text-primary flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-accent/10">
+                    <Mail className="h-6 w-6" />
+                  </div>
+                  Get In Touch
+                </CardTitle>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Reach out through any of these channels
+                </p>
               </CardHeader>
-              <CardContent className="space-y-4 sm:space-y-6">
+              <CardContent className="p-8 space-y-6">
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon;
                   return (
@@ -176,72 +295,36 @@ const ContactSection = memo(() => {
                       href={info.href}
                       target={info.href.startsWith('http') ? '_blank' : '_self'}
                       rel={info.href.startsWith('http') ? 'noopener noreferrer' : ''}
-                      whileHover={{ scale: 1.02 }}
-                      className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg hover:bg-secondary/50 transition-all duration-300 group cursor-pointer"
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      className="flex items-center gap-6 p-6 rounded-xl hover:bg-secondary/50 transition-all duration-300 group cursor-pointer border border-transparent hover:border-primary/20"
                     >
-                      <div className={`p-2 sm:p-3 rounded-full bg-secondary/50 ${info.color} group-hover:shadow-accent transition-all duration-300`}>
-                        <Icon className="h-4 w-4 sm:h-6 sm:w-6" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground text-sm sm:text-base">{info.label}</p>
-                        <p className="text-muted-foreground group-hover:text-primary transition-colors duration-300 text-xs sm:text-sm">
+                      <motion.div 
+                        className={`p-4 rounded-xl bg-secondary/50 ${info.color} group-hover:shadow-accent transition-all duration-300`}
+                        whileHover={{ rotate: 5 }}
+                      >
+                        <Icon className="h-6 w-6" />
+                      </motion.div>
+                      <div className="flex-1">
+                        <p className="font-bold text-foreground text-base mb-1">{info.label}</p>
+                        <p className="text-muted-foreground group-hover:text-primary transition-colors duration-300 text-sm">
                           {info.value}
                         </p>
                       </div>
+                      <motion.div
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        whileHover={{ x: 5 }}
+                      >
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                      </motion.div>
                     </motion.a>
                   );
                 })}
               </CardContent>
             </Card>
-
-            {/* Social Links */}
-            <Card className="glass-card">
-              <CardHeader>
-                <CardTitle className="text-lg sm:text-xl text-primary">Connect With Me</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex gap-3 sm:gap-4 justify-center sm:justify-start">
-                  {socialLinks.map((social, index) => {
-                    const Icon = social.icon;
-                    return (
-                      <motion.a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Visit ${social.label} profile`}
-                        whileHover={{ scale: 1.1, rotateZ: 5 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`p-3 sm:p-4 rounded-full bg-secondary/50 text-muted-foreground ${social.color} transition-all duration-300 hover:shadow-accent`}
-                      >
-                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
-                        <span className="sr-only">{social.label}</span>
-                      </motion.a>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Availability Status */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
-              <Card className="glass-card border border-primary/30 bg-gradient-to-r from-primary/10 to-accent/10">
-                <CardContent className="p-4 sm:p-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full animate-pulse" />
-                    <span className="font-semibold text-primary text-sm sm:text-base">{contactData.availability.status}</span>
-                  </div>
-                  <p className="text-muted-foreground text-xs sm:text-sm">
-                    {contactData.availability.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
           </motion.div>
         </div>
       </div>

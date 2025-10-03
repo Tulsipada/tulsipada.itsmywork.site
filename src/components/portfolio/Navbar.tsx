@@ -33,7 +33,7 @@ export const Navbar = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 150 && rect.bottom >= 150; // Adjusted for increased spacing
+          return rect.top <= 64 && rect.bottom >= 64; // Exact navbar height
         }
         return false;
       });
@@ -51,7 +51,7 @@ export const Navbar = () => {
     const element = document.querySelector(href);
     if (element) {
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - 100; // 100px offset for navbar
+      const offsetPosition = elementPosition + window.pageYOffset - 64; // Exact navbar height
       
       window.scrollTo({
         top: offsetPosition,

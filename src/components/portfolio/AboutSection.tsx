@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Server, Database, Lock } from "lucide-react";
+import { Code, Server, Database, Lock, GraduationCap, Trophy, Target } from "lucide-react";
 import { memo } from "react";
 import aboutData from "@/data/about.json";
 
@@ -11,6 +11,13 @@ const iconMap = {
   Server,
   Database,
   Lock
+};
+
+// Section icons
+const sectionIcons = {
+  currentFocus: Target,
+  achievements: Trophy,
+  education: GraduationCap
 };
 
 const skills = aboutData.skills.map(skill => ({
@@ -43,8 +50,9 @@ const itemVariants = {
 
 const AboutSection = memo(() => {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-background">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,10 +60,10 @@ const AboutSection = memo(() => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-6">
             {aboutData.title}
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             {aboutData.description}
           </p>
         </motion.div>
@@ -69,29 +77,55 @@ const AboutSection = memo(() => {
             transition={{ duration: 0.8 }}
           >
             <Card className="glass-card hover:shadow-glow transition-all duration-300 h-full">
-              <CardContent className="p-6 sm:p-8">
-                <h3 className="text-xl sm:text-2xl font-bold text-primary mb-6">{aboutData.experience.title}</h3>
-                <div className="space-y-6">
-                  <div className="space-y-2">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl sm:text-2xl font-bold text-primary flex items-center gap-2">
+                  <Server className="h-6 w-6" />
+                  {aboutData.experience.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Current Focus */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Target className="h-5 w-5 text-accent" />
                     <h4 className="text-lg font-semibold text-foreground">{aboutData.experience.currentFocus.title}</h4>
-                    <p className="text-muted-foreground">
-                      {aboutData.experience.currentFocus.description}
-                    </p>
                   </div>
-                  
-                  <div className="space-y-2">
+                  <p className="text-muted-foreground leading-relaxed pl-7">
+                    {aboutData.experience.currentFocus.description}
+                  </p>
+                </div>
+                
+                <div className="border-t border-border my-4"></div>
+                
+                {/* Achievements */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Trophy className="h-5 w-5 text-accent" />
                     <h4 className="text-lg font-semibold text-foreground">{aboutData.experience.achievements.title}</h4>
-                    <ul className="text-muted-foreground space-y-1">
-                      {aboutData.experience.achievements.items.map((item, index) => (
-                        <li key={index}>• {item}</li>
-                      ))}
-                    </ul>
                   </div>
+                  <ul className="text-muted-foreground space-y-2 pl-7">
+                    {aboutData.experience.achievements.items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="text-accent mt-1">•</span>
+                        <span className="leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                  <div className="space-y-2">
+                <div className="border-t border-border my-4"></div>
+
+                {/* Education */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <GraduationCap className="h-5 w-5 text-accent" />
                     <h4 className="text-lg font-semibold text-foreground">{aboutData.experience.education.title}</h4>
+                  </div>
+                  <div className="pl-7">
+                    <p className="text-foreground font-medium mb-1">
+                      {aboutData.experience.education.degree}
+                    </p>
                     <p className="text-muted-foreground">
-                      <strong>{aboutData.experience.education.degree}</strong><br />
                       {aboutData.experience.education.institution}
                     </p>
                   </div>
@@ -106,51 +140,68 @@ const AboutSection = memo(() => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-8"
           >
-            <h3 className="text-xl sm:text-2xl font-bold text-primary mb-6">Technical Skills</h3>
-            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-              {skills.map((skill, index) => {
-                const Icon = skill.icon;
-                return (
-                  <motion.div
-                    key={skill.name}
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05, rotateY: 5 }}
-                    className="group"
-                  >
-                    <Card className="glass-card hover:shadow-accent transition-all duration-300 cursor-pointer h-full">
-                      <CardContent className="p-3 sm:p-4 text-center">
-                        <Icon className="h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-2 text-primary group-hover:text-accent transition-colors duration-300" />
-                        <h4 className="font-semibold text-xs sm:text-sm mb-1">{skill.name}</h4>
-                        <Badge 
-                          variant="secondary" 
-                          className={`text-xs ${categories[skill.category as keyof typeof categories]} text-white border-0`}
-                        >
-                          {skill.category}
-                        </Badge>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                );
-              })}
+            {/* Skills Section */}
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+                <Code className="h-6 w-6" />
+                Technical Skills
+              </h3>
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                {skills.map((skill, index) => {
+                  const Icon = skill.icon;
+                  return (
+                    <motion.div
+                      key={skill.name}
+                      variants={itemVariants}
+                      whileHover={{ scale: 1.05, rotateY: 5 }}
+                      className="group"
+                    >
+                      <Card className="glass-card hover:shadow-accent transition-all duration-300 cursor-pointer h-full">
+                        <CardContent className="p-4 text-center">
+                          <Icon className="h-7 w-7 sm:h-8 sm:w-8 mx-auto mb-3 text-primary group-hover:text-accent transition-colors duration-300" />
+                          <h4 className="font-semibold text-sm mb-2">{skill.name}</h4>
+                          <Badge 
+                            variant="secondary" 
+                            className={`text-xs ${categories[skill.category as keyof typeof categories]} text-white border-0`}
+                          >
+                            {skill.category}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
 
+            {/* Languages Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="mt-8 p-6 glass-card rounded-lg"
             >
-              <h4 className="text-lg font-semibold text-primary mb-3">Languages</h4>
-              <div className="flex flex-wrap gap-3">
-                {aboutData.languages.map((language, index) => (
-                  <Badge key={index} variant="outline" className="border-primary text-primary">
-                    {language.flag} {language.name} ({language.level})
-                  </Badge>
-                ))}
-              </div>
+              <Card className="glass-card">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
+                    <Database className="h-5 w-5" />
+                    Languages
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-3">
+                    {aboutData.languages.map((language, index) => (
+                      <Badge key={index} variant="outline" className="border-primary text-primary px-3 py-1">
+                        <span className="mr-2">{language.flag}</span>
+                        {language.name} 
+                        <span className="ml-1 text-xs opacity-75">({language.level})</span>
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           </motion.div>
         </div>

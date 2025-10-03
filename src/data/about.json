@@ -4,20 +4,22 @@
   "experience": {
     "title": "Experience & Expertise",
     "currentFocus": {
-      "title": "🚀 Current Focus",
+      "title": "Current Focus",
       "description": "Building secure payment systems using Stripe API, designing RESTful APIs, and managing MySQL databases with Node.js expertise."
     },
     "achievements": {
-      "title": "🎯 Achievements",
+      "title": "Key Achievements",
       "items": [
         "98% accuracy in secure payment system implementation",
-        "90% proficiency in server-side JavaScript programming",
+        "90% proficiency in server-side JavaScript programming", 
         "Successfully delivered 5+ production applications",
-        "Expert in authentication systems (OAuth2/JWT)"
+        "Expert in authentication systems (OAuth2/JWT)",
+        "Proficient in database design and optimization",
+        "Experience with microservices architecture"
       ]
     },
     "education": {
-      "title": "🎓 Education",
+      "title": "Education",
       "degree": "B.Tech in Computer Science & Engineering",
       "institution": "Ideal Institute of Engineering (2019-2022)"
     }

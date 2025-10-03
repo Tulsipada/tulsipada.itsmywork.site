@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, ExternalLink, Github, Heart, ShoppingCart, Users, Briefcase, GamepadIcon } from "lucide-react";
+import { Calendar, ExternalLink, Github, Heart, ShoppingCart, Users, Briefcase, GamepadIcon, Apple, Play, Smartphone, Globe, MapPin, Mail, Car } from "lucide-react";
 import projectsData from "@/data/projects.json";
 import { memo } from "react";
 
@@ -12,7 +12,14 @@ const iconMap = {
   Heart,
   Briefcase,
   Users,
-  GamepadIcon
+  GamepadIcon,
+  Apple,
+  Play,
+  Smartphone,
+  Globe,
+  MapPin,
+  Mail,
+  Car
 };
 
 const projects = projectsData.projects.map(project => ({
@@ -44,7 +51,7 @@ const cardVariants = {
 
 const ProjectsSection = memo(() => {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-background">
+    <section className="py-4 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -84,16 +91,50 @@ const ProjectsSection = memo(() => {
               >
                 <Card className="glass-card hover:shadow-glow transition-all duration-500 h-full flex flex-col overflow-hidden group">
                   {/* Project Icon Header */}
-                  <div className={`h-16 sm:h-20 bg-gradient-to-r ${project.color} flex items-center justify-center relative overflow-hidden`}>
-                    <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-white relative z-10" />
+                  <div 
+                    className={`h-16 sm:h-20 flex items-center justify-center relative overflow-hidden border-2 border-white/20`}
+                        style={{
+                          background: project.color.includes('red') ? 'linear-gradient(to right, #dc2626, #db2777)' :
+                                     project.color.includes('blue') ? 'linear-gradient(to right, #2563eb, #059669)' :
+                                     project.color.includes('purple') ? 'linear-gradient(to right, #7c3aed, #2563eb)' :
+                                     project.color.includes('amber') ? 'linear-gradient(to right, #d97706, #ea580c)' :
+                                     project.color.includes('yellow') ? 'linear-gradient(to right, #d97706, #ea580c)' :
+                                     project.color.includes('teal') ? 'linear-gradient(to right, #0d9488, #0891b2)' :
+                                     project.color.includes('indigo') ? 'linear-gradient(to right, #4f46e5, #7c3aed)' :
+                                     project.color.includes('violet') ? 'linear-gradient(to right, #7c3aed, #9333ea)' :
+                                     project.color.includes('emerald') ? 'linear-gradient(to right, #059669, #0d9488)' :
+                                     'linear-gradient(to right, #dc2626, #db2777)'
+                        }}
+                  >
+                    <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-white relative z-10 drop-shadow-lg" />
                     <div className="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
                   </div>
 
                   <CardHeader className="pb-3 sm:pb-4">
                     <div className="space-y-2">
-                      <CardTitle className="text-lg sm:text-xl text-primary group-hover:text-primary-glow transition-colors duration-300">
-                        {project.title}
-                      </CardTitle>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg sm:text-xl text-primary group-hover:text-primary-glow transition-colors duration-300">
+                          {project.title}
+                        </CardTitle>
+                        <Badge 
+                          variant="outline" 
+                          className={`text-xs px-2 py-1 ${
+                            project.type === "Mobile App" 
+                              ? "border-green-500 text-green-500 bg-green-500/10" 
+                              : "border-blue-500 text-blue-500 bg-blue-500/10"
+                          }`}
+                        >
+                          <div className="flex items-center gap-1">
+                            {project.type === "Mobile App" ? (
+                              <Smartphone className="h-3 w-3" />
+                            ) : (
+                              <Globe className="h-3 w-3" />
+                            )}
+                            {project.type}
+                          </div>
+                        </Badge>
+                      </div>
                       <div className="flex items-center text-muted-foreground text-xs sm:text-sm gap-1">
                         <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
                         {project.period}
@@ -137,26 +178,69 @@ const ProjectsSection = memo(() => {
                     </div>
 
                     <div className="pt-3 sm:pt-4 border-t border-border/50">
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="flex-1 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-xs sm:text-sm"
-                          disabled
-                        >
-                          <Github className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                          Private
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="flex-1 border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 text-xs sm:text-sm"
-                          disabled
-                        >
-                          <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                          Enterprise
-                        </Button>
-                      </div>
+                      {project.links ? (
+                        <div className="flex gap-2">
+                          {project.links.map((link, linkIndex) => {
+                            const LinkIcon = iconMap[link.icon as keyof typeof iconMap];
+                            const isAppStore = link.name === "App Store";
+                            const isGooglePlay = link.name === "Google Play";
+                            const isWebsite = link.name === "Website";
+                            
+                            let buttonClass = "flex-1 transition-all duration-300 text-xs sm:text-sm ";
+                            
+                            if (isAppStore) {
+                              buttonClass += "border-gray-600 text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-700 bg-gray-50/50";
+                            } else if (isGooglePlay) {
+                              buttonClass += "border-green-500 text-green-700 hover:bg-green-50 hover:text-green-900 hover:border-green-600 bg-green-50/50";
+                            } else if (isWebsite) {
+                              buttonClass += "border-blue-500 text-blue-700 hover:bg-blue-50 hover:text-blue-900 hover:border-blue-600 bg-blue-50/50";
+                            } else {
+                              buttonClass += "border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground";
+                            }
+                            
+                            return (
+                              <Button
+                                key={linkIndex}
+                                size="sm"
+                                variant="outline"
+                                className={buttonClass}
+                                asChild
+                              >
+                                <a 
+                                  href={link.url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  aria-label={`Visit ${link.name}`}
+                                >
+                                  <LinkIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                                  {link.name}
+                                </a>
+                              </Button>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-xs sm:text-sm"
+                            disabled
+                          >
+                            <Github className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                            Private
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1 border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 text-xs sm:text-sm"
+                            disabled
+                          >
+                            <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                            Enterprise
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

@@ -1,5 +1,6 @@
 import { Suspense, useRef, useMemo, lazy } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { CSS3DProfile } from "./ProfileImage3D";
@@ -25,7 +26,7 @@ export const HeroSection = () => {
   });
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-24">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-16">
       {/* 3D Background with fallback */}
       <div className="absolute inset-0 z-0">
         <Suspense fallback={<CSSBackground />}>
@@ -39,19 +40,19 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-6 sm:space-y-8"
+          className="space-y-3 sm:space-y-4"
         >
           {/* Profile Image with 3D Effects */}
           <motion.div
             initial={{ opacity: 0, scale: 0.3 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 1.2, type: "spring", bounce: 0.4 }}
-            className="mb-6 sm:mb-8"
+            className="mb-3 sm:mb-4"
           >
             <CSS3DProfile imageUrl={profileImage} />
           </motion.div>
 
-          <div className="space-y-3 sm:space-y-4">
+          <div className="space-y-2 sm:space-y-3">
             <motion.h1 
               className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-primary bg-clip-text text-transparent glow-text leading-tight"
               initial={{ opacity: 0, scale: 0.5 }}
@@ -81,7 +82,7 @@ export const HeroSection = () => {
           </div>
 
           <motion.div 
-            className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 px-2 sm:px-0"
+            className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-3 px-2 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
@@ -123,14 +124,37 @@ export const HeroSection = () => {
           </motion.div>
 
           <motion.div 
-            className="pt-6 sm:pt-8"
+            className="pt-3 sm:pt-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.8 }}
           >
-            <p className="text-sm sm:text-base text-muted-foreground mb-4 px-2 sm:px-0">
+            <p className="text-sm sm:text-base text-muted-foreground mb-2 px-2 sm:px-0">
               📍 {personalData.personalInfo.location} • 📞 {personalData.personalInfo.phone}
             </p>
+            
+            {/* Availability Status Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+              className="mb-3"
+            >
+              <Card className="glass-card border border-primary/30 bg-gradient-to-r from-primary/10 to-accent/10 max-w-md mx-auto">
+                <CardContent className="p-3 sm:p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full animate-pulse" />
+                    <span className="font-semibold text-primary text-sm sm:text-base">
+                      {personalData.availability.status}
+                    </span>
+                  </div>
+                  <p className="text-muted-foreground text-xs sm:text-sm">
+                    {personalData.availability.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            
             <ChevronDown className="mx-auto h-6 w-6 sm:h-8 sm:w-8 text-primary animate-bounce" />
           </motion.div>
         </motion.div>

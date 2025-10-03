@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { HeroSection } from "@/components/portfolio/HeroSection";
 import { Navbar } from "@/components/portfolio/Navbar";
+import { Footer } from "@/components/portfolio/Footer";
 
 // Lazy load sections for better performance
 const AboutSection = lazy(() => import("@/components/portfolio/AboutSection").then(module => ({ default: module.AboutSection })));
@@ -23,27 +24,28 @@ const Index = () => {
         <section id="hero">
           <HeroSection />
         </section>
-        <section id="about" className="pt-24">
+        <section id="about">
           <Suspense fallback={<SectionLoader />}>
             <AboutSection />
           </Suspense>
         </section>
-        <section id="experience" className="pt-24">
+        <section id="experience">
           <Suspense fallback={<SectionLoader />}>
             <ExperienceSection />
           </Suspense>
         </section>
-        <section id="projects" className="pt-24">
+        <section id="projects">
           <Suspense fallback={<SectionLoader />}>
             <ProjectsSection />
           </Suspense>
         </section>
-        <section id="contact" className="pt-24">
+        <section id="contact">
           <Suspense fallback={<SectionLoader />}>
             <ContactSection />
           </Suspense>
         </section>
       </main>
+      <Footer />
     </>
   );
 };
