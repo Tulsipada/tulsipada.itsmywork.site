@@ -25,7 +25,19 @@ const skills = aboutData.skills.map(skill => ({
   icon: iconMap[skill.icon as keyof typeof iconMap]
 }));
 
-const categories = aboutData.skillCategories;
+const categories = {
+  "Language": "bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg shadow-blue-500/25",
+  "Runtime": "bg-gradient-to-r from-purple-500 to-pink-400 text-white shadow-lg shadow-purple-500/25",
+  "Database": "bg-gradient-to-r from-emerald-500 to-green-400 text-white shadow-lg shadow-emerald-500/25",
+  "Backend": "bg-gradient-to-r from-orange-500 to-red-400 text-white shadow-lg shadow-orange-500/25",
+  "Security": "bg-gradient-to-r from-red-500 to-rose-400 text-white shadow-lg shadow-red-500/25",
+  "DevOps": "bg-gradient-to-r from-yellow-500 to-amber-400 text-white shadow-lg shadow-yellow-500/25",
+  "Version Control": "bg-gradient-to-r from-slate-500 to-gray-400 text-white shadow-lg shadow-slate-500/25",
+  "Payment": "bg-gradient-to-r from-violet-500 to-purple-400 text-white shadow-lg shadow-violet-500/25",
+  "Cache": "bg-gradient-to-r from-indigo-500 to-blue-400 text-white shadow-lg shadow-indigo-500/25",
+  "Framework": "bg-gradient-to-r from-pink-500 to-rose-400 text-white shadow-lg shadow-pink-500/25",
+  "Query Language": "bg-gradient-to-r from-teal-500 to-cyan-400 text-white shadow-lg shadow-teal-500/25"
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -162,12 +174,26 @@ const AboutSection = memo(() => {
                         <CardContent className="p-4 text-center">
                           <Icon className="h-7 w-7 sm:h-8 sm:w-8 mx-auto mb-3 text-primary group-hover:text-accent transition-colors duration-300" />
                           <h4 className="font-semibold text-sm mb-2">{skill.name}</h4>
-                          <Badge 
-                            variant="secondary" 
-                            className={`text-xs ${categories[skill.category as keyof typeof categories]} text-white border-0`}
+                          <span 
+                            className={`inline-block text-xs font-semibold px-3 py-1 rounded-full ${categories[skill.category as keyof typeof categories]}`}
+                            style={{
+                              background: skill.category === 'Language' ? 'linear-gradient(to right, #3b82f6, #06b6d4)' :
+                                         skill.category === 'Runtime' ? 'linear-gradient(to right, #8b5cf6, #ec4899)' :
+                                         skill.category === 'Database' ? 'linear-gradient(to right, #10b981, #22c55e)' :
+                                         skill.category === 'Backend' ? 'linear-gradient(to right, #f97316, #ef4444)' :
+                                         skill.category === 'Security' ? 'linear-gradient(to right, #ef4444, #f43f5e)' :
+                                         skill.category === 'DevOps' ? 'linear-gradient(to right, #eab308, #f59e0b)' :
+                                         skill.category === 'Version Control' ? 'linear-gradient(to right, #64748b, #9ca3af)' :
+                                         skill.category === 'Payment' ? 'linear-gradient(to right, #8b5cf6, #a855f7)' :
+                                         skill.category === 'Cache' ? 'linear-gradient(to right, #6366f1, #3b82f6)' :
+                                         skill.category === 'Framework' ? 'linear-gradient(to right, #ec4899, #f43f5e)' :
+                                         'linear-gradient(to right, #14b8a6, #06b6d4)',
+                              color: 'white',
+                              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+                            }}
                           >
                             {skill.category}
-                          </Badge>
+                          </span>
                         </CardContent>
                       </Card>
                     </motion.div>
