@@ -3,39 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Building } from "lucide-react";
 import { memo } from "react";
+import experienceData from "@/data/experience.json";
 
-const experiences = [
-  {
-    title: "Node.js Developer",
-    company: "CODEWARRIOR TECHNOLOGIES PVT. LIMITED",
-    location: "Kolkata, West Bengal",
-    period: "June 2022 - Present",
-    type: "Full-time",
-    achievements: [
-      "Implemented secure payment systems using Stripe API with 98% accuracy",
-      "Designed and developed RESTful APIs for multiple client projects",
-      "Managed MySQL databases with optimized query performance",
-      "Achieved 90% proficiency in server-side JavaScript programming",
-      "Handled API design, payment integration, and real-time communication"
-    ],
-    technologies: ["Node.js", "JavaScript", "Stripe API", "MySQL", "RESTful APIs", "OAuth2", "JWT"]
-  },
-  {
-    title: "Node.js Developer Jr (Internship)",
-    company: "RICOMPUTECH PRIVATE LIMITED",
-    location: "Kalyani, West Bengal",
-    period: "February 2022 - May 2022",
-    type: "Internship",
-    achievements: [
-      "Developed secure authentication systems using OAuth2 and JWT",
-      "Created CRUD applications for employee data management",
-      "Implemented user authentication and authorization systems",
-      "Built web scraper applications with database integration",
-      "Focused on input validation and comprehensive error handling"
-    ],
-    technologies: ["Node.js", "OAuth2", "JWT", "CRUD Operations", "Web Scraping", "Database Management"]
-  }
-];
+const experiences = experienceData.experiences;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -71,10 +41,10 @@ const ExperienceSection = memo(() => {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-            Work Experience
+            {experienceData.title}
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-            Building innovative solutions and gaining expertise in modern web development technologies
+            {experienceData.description}
           </p>
         </motion.div>
 

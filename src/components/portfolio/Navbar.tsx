@@ -3,20 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import navigationData from "@/data/navigation.json";
 
-const navItems = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
-];
+// Icon mapping for dynamic imports
+const iconMap = {
+  Github,
+  Linkedin,
+  Mail
+};
 
-const socialLinks = [
-  { name: "GitHub", href: "https://github.com/tulsipada", icon: Github },
-  { name: "LinkedIn", href: "https://linkedin.com/in/tulsipada", icon: Linkedin },
-  { name: "Email", href: "mailto:tulsipada55@gmail.com", icon: Mail },
-];
+const navItems = navigationData.navItems;
+const socialLinks = navigationData.socialLinks.map(social => ({
+  ...social,
+  icon: iconMap[social.icon as keyof typeof iconMap]
+}));
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -80,10 +80,10 @@ export const Navbar = () => {
             className="flex-shrink-0"
           >
             <button
-              onClick={() => scrollToSection("#hero")}
+              onClick={() => scrollToSection(navigationData.brand.href)}
               className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
-              Tulsipada Das
+              {navigationData.brand.name}
             </button>
           </motion.div>
 
@@ -145,7 +145,7 @@ export const Navbar = () => {
                   {/* Mobile Logo */}
                   <div className="flex items-center justify-between mb-8">
                     <h2 className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
-                      Tulsipada Das
+                      {navigationData.brand.name}
                     </h2>
                   </div>
 
@@ -173,7 +173,7 @@ export const Navbar = () => {
                   {/* Mobile Social Links */}
                   <div className="border-t border-border pt-6">
                     <h3 className="text-sm font-medium text-muted-foreground mb-4">
-                      Connect with me
+                      {navigationData.mobileMenu.title}
                     </h3>
                     <div className="space-y-3">
                       {socialLinks.map((social) => {

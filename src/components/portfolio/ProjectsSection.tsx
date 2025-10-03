@@ -3,75 +3,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, ExternalLink, Github, Heart, ShoppingCart, Users, Briefcase, GamepadIcon } from "lucide-react";
+import projectsData from "@/data/projects.json";
 import { memo } from "react";
 
-const projects = [
-  {
-    title: "CardApp",
-    period: "December 2022 - February 2023",
-    description: "Developed and maintained a robust buy and sell platform with comprehensive RESTful API design and efficient database management capabilities.",
-    icon: ShoppingCart,
-    technologies: ["Node.js", "RESTful APIs", "Database Management", "Backend Development"],
-    highlights: [
-      "Built scalable buy/sell platform architecture",
-      "Implemented secure transaction handling",
-      "Optimized database queries for performance"
-    ],
-    color: "from-blue-500 to-cyan-400"
-  },
-  {
-    title: "Reboundate",
-    period: "September 2022 - January 2023", 
-    description: "Designed and implemented a secure and scalable dating app featuring user authentication, intelligent swiping and matching algorithms, and real-time messaging.",
-    icon: Heart,
-    technologies: ["Node.js", "MySQL", "Real-time Messaging", "Authentication", "Matching Algorithms"],
-    highlights: [
-      "Real-time chat implementation",
-      "Advanced matching algorithms",
-      "Secure user authentication system"
-    ],
-    color: "from-pink-500 to-rose-400"
-  },
-  {
-    title: "CrewResume",
-    period: "August 2022 - December 2022",
-    description: "Developed and implemented the backend infrastructure of a comprehensive job searching portal focused on resume management and candidate screening.",
-    icon: Briefcase,
-    technologies: ["Node.js", "Resume Management", "Job Portal", "Scalable Architecture"],
-    highlights: [
-      "Scalable resume parsing system",
-      "Advanced search and filtering",
-      "Efficient candidate management"
-    ],
-    color: "from-green-500 to-emerald-400"
-  },
-  {
-    title: "NeedAGuy",
-    period: "July 2022 - November 2022",
-    description: "Developed a comprehensive web application that intelligently connects employers with job seekers based on their skills, experience, and compatibility.",
-    icon: Users,
-    technologies: ["Node.js", "Loopback", "MySQL", "Skill Matching"],
-    highlights: [
-      "Intelligent skill matching system",
-      "Automated employer-candidate pairing",
-      "Comprehensive profile management"
-    ],
-    color: "from-purple-500 to-violet-400"
-  },
-  {
-    title: "Brodough",
-    period: "June 2022 - September 2022",
-    description: "Designed and developed a feature-rich fantasy gaming application with dynamic gameplay mechanics, advanced social features, and performance optimization.",
-    icon: GamepadIcon,
-    technologies: ["Node.js", "Gaming Backend", "Social Features", "Performance Optimization"],
-    highlights: [
-      "Dynamic gameplay mechanics",
-      "Social interaction features",
-      "High-performance game backend"
-    ],
-    color: "from-orange-500 to-amber-400"
-  }
-];
+// Icon mapping for dynamic imports
+const iconMap = {
+  ShoppingCart,
+  Heart,
+  Briefcase,
+  Users,
+  GamepadIcon
+};
+
+const projects = projectsData.projects.map(project => ({
+  ...project,
+  icon: iconMap[project.icon as keyof typeof iconMap]
+}));
 
 const containerVariants = {
   hidden: { opacity: 0 },

@@ -3,35 +3,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code, Server, Database, Lock } from "lucide-react";
 import { memo } from "react";
+import aboutData from "@/data/about.json";
 
-const skills = [
-  { name: "JavaScript", category: "Language", icon: Code },
-  { name: "Node.js", category: "Runtime", icon: Server },
-  { name: "MongoDB", category: "Database", icon: Database },
-  { name: "MySQL", category: "Database", icon: Database },
-  { name: "RESTful APIs", category: "Backend", icon: Server },
-  { name: "OAuth/JWT", category: "Security", icon: Lock },
-  { name: "Docker", category: "DevOps", icon: Server },
-  { name: "Git", category: "Version Control", icon: Code },
-  { name: "Stripe API", category: "Payment", icon: Lock },
-  { name: "Redis", category: "Cache", icon: Database },
-  { name: "Loopback 4", category: "Framework", icon: Server },
-  { name: "SQL", category: "Query Language", icon: Database },
-];
-
-const categories = {
-  "Language": "bg-gradient-to-r from-primary to-primary-glow",
-  "Runtime": "bg-gradient-to-r from-accent to-accent-glow",
-  "Database": "bg-gradient-to-r from-green-500 to-green-400",
-  "Backend": "bg-gradient-to-r from-blue-500 to-blue-400",
-  "Security": "bg-gradient-to-r from-red-500 to-red-400",
-  "DevOps": "bg-gradient-to-r from-yellow-500 to-yellow-400",
-  "Version Control": "bg-gradient-to-r from-gray-500 to-gray-400",
-  "Payment": "bg-gradient-to-r from-purple-500 to-purple-400",
-  "Cache": "bg-gradient-to-r from-indigo-500 to-indigo-400",
-  "Framework": "bg-gradient-to-r from-pink-500 to-pink-400",
-  "Query Language": "bg-gradient-to-r from-teal-500 to-teal-400",
+// Icon mapping for dynamic imports
+const iconMap = {
+  Code,
+  Server,
+  Database,
+  Lock
 };
+
+const skills = aboutData.skills.map(skill => ({
+  ...skill,
+  icon: iconMap[skill.icon as keyof typeof iconMap]
+}));
+
+const categories = aboutData.skillCategories;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -66,12 +53,10 @@ const AboutSection = memo(() => {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-            About Me
+            {aboutData.title}
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
-            A passionate Node.js developer with expertise in building secure, scalable applications. 
-            I specialize in payment systems, RESTful API design, and database management, achieving 
-            up to 98% accuracy in implementation.
+            {aboutData.description}
           </p>
         </motion.div>
 
@@ -85,31 +70,29 @@ const AboutSection = memo(() => {
           >
             <Card className="glass-card hover:shadow-glow transition-all duration-300 h-full">
               <CardContent className="p-6 sm:p-8">
-                <h3 className="text-xl sm:text-2xl font-bold text-primary mb-6">Experience & Expertise</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-primary mb-6">{aboutData.experience.title}</h3>
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <h4 className="text-lg font-semibold text-foreground">🚀 Current Focus</h4>
+                    <h4 className="text-lg font-semibold text-foreground">{aboutData.experience.currentFocus.title}</h4>
                     <p className="text-muted-foreground">
-                      Building secure payment systems using Stripe API, designing RESTful APIs, 
-                      and managing MySQL databases with Node.js expertise.
+                      {aboutData.experience.currentFocus.description}
                     </p>
                   </div>
                   
                   <div className="space-y-2">
-                    <h4 className="text-lg font-semibold text-foreground">🎯 Achievements</h4>
+                    <h4 className="text-lg font-semibold text-foreground">{aboutData.experience.achievements.title}</h4>
                     <ul className="text-muted-foreground space-y-1">
-                      <li>• 98% accuracy in secure payment system implementation</li>
-                      <li>• 90% proficiency in server-side JavaScript programming</li>
-                      <li>• Successfully delivered 5+ production applications</li>
-                      <li>• Expert in authentication systems (OAuth2/JWT)</li>
+                      {aboutData.experience.achievements.items.map((item, index) => (
+                        <li key={index}>• {item}</li>
+                      ))}
                     </ul>
                   </div>
 
                   <div className="space-y-2">
-                    <h4 className="text-lg font-semibold text-foreground">🎓 Education</h4>
+                    <h4 className="text-lg font-semibold text-foreground">{aboutData.experience.education.title}</h4>
                     <p className="text-muted-foreground">
-                      <strong>B.Tech in Computer Science & Engineering</strong><br />
-                      Ideal Institute of Engineering (2019-2022)
+                      <strong>{aboutData.experience.education.degree}</strong><br />
+                      {aboutData.experience.education.institution}
                     </p>
                   </div>
                 </div>
@@ -162,15 +145,11 @@ const AboutSection = memo(() => {
             >
               <h4 className="text-lg font-semibold text-primary mb-3">Languages</h4>
               <div className="flex flex-wrap gap-3">
-                <Badge variant="outline" className="border-primary text-primary">
-                  🇮🇳 Bengali (Native)
-                </Badge>
-                <Badge variant="outline" className="border-primary text-primary">
-                  🇺🇸 English (Professional)
-                </Badge>
-                <Badge variant="outline" className="border-primary text-primary">
-                  🇮🇳 Hindi (Native)
-                </Badge>
+                {aboutData.languages.map((language, index) => (
+                  <Badge key={index} variant="outline" className="border-primary text-primary">
+                    {language.flag} {language.name} ({language.level})
+                  </Badge>
+                ))}
               </div>
             </motion.div>
           </motion.div>

@@ -1,0 +1,65 @@
+{
+  "personalInfo": {
+    "name": "Tulsipada Das",
+    "title": "Node.js Developer",
+    "description": "Passionate about creating cutting-edge solutions with Node.js, RESTful APIs, and secure payment systems. {{experience}} years of experience building scalable applications.",
+    "location": "Tamluk, India",
+    "phone": "+917699283549",
+    "email": "tulsipada55@gmail.com",
+    "website": "tulsipada.in",
+    "profileImage": "/src/assets/Tulsipada.avif",
+    "careerStartDate": "2022-06-01"
+  },
+  "socialLinks": [
+    {
+      "name": "GitHub",
+      "href": "https://github.com/tulsipada",
+      "icon": "Github"
+    },
+    {
+      "name": "LinkedIn",
+      "href": "https://linkedin.com/in/tulsipada",
+      "icon": "Linkedin"
+    },
+    {
+      "name": "Email",
+      "href": "mailto:tulsipada55@gmail.com",
+      "icon": "Mail"
+    }
+  ],
+  "contactInfo": [
+    {
+      "icon": "Mail",
+      "label": "Email",
+      "value": "tulsipada55@gmail.com",
+      "href": "mailto:tulsipada55@gmail.com",
+      "color": "text-blue-400"
+    },
+    {
+      "icon": "Phone",
+      "label": "Phone",
+      "value": "+91 7699283549",
+      "href": "tel:+917699283549",
+      "color": "text-green-400"
+    },
+    {
+      "icon": "MapPin",
+      "label": "Location",
+      "value": "Tamluk, India",
+      "href": "https://maps.google.com/?q=Tamluk,India",
+      "color": "text-red-400"
+    },
+    {
+      "icon": "Globe",
+      "label": "Website",
+      "value": "tulsipada.in",
+      "href": "https://tulsipada.in",
+      "color": "text-purple-400"
+    }
+  ],
+  "availability": {
+    "status": "Available for Projects",
+    "description": "Currently accepting new client projects and open to full-time opportunities. Response time: Within 24 hours.",
+    "isAvailable": true
+  }
+}

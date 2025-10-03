@@ -1,0 +1,88 @@
+{
+  "title": "Let's Work Together",
+  "description": "Ready to bring your ideas to life? I'm always open to discussing new opportunities and innovative projects. Let's create something amazing together.",
+  "form": {
+    "title": "Send Me a Message",
+    "fields": {
+      "name": {
+        "label": "Name *",
+        "placeholder": "Your full name",
+        "required": true
+      },
+      "email": {
+        "label": "Email *",
+        "placeholder": "your.email@example.com",
+        "required": true,
+        "type": "email"
+      },
+      "subject": {
+        "label": "Subject *",
+        "placeholder": "Project discussion, job opportunity, etc.",
+        "required": true
+      },
+      "message": {
+        "label": "Message *",
+        "placeholder": "Tell me about your project, requirements, or any questions you have...",
+        "required": true,
+        "rows": 6
+      }
+    },
+    "submitButton": {
+      "text": "Send Message",
+      "icon": "Send"
+    },
+    "successMessage": {
+      "title": "Message sent! I'll get back to you soon.",
+      "description": "Thank you for reaching out. I typically respond within 24 hours."
+    }
+  },
+  "contactInfo": [
+    {
+      "icon": "Mail",
+      "label": "Email",
+      "value": "tulsipada55@gmail.com",
+      "href": "mailto:tulsipada55@gmail.com",
+      "color": "text-blue-400"
+    },
+    {
+      "icon": "Phone",
+      "label": "Phone",
+      "value": "+91 7699283549",
+      "href": "tel:+917699283549",
+      "color": "text-green-400"
+    },
+    {
+      "icon": "MapPin",
+      "label": "Location",
+      "value": "Tamluk, India",
+      "href": "https://maps.google.com/?q=Tamluk,India",
+      "color": "text-red-400"
+    },
+    {
+      "icon": "Globe",
+      "label": "Website",
+      "value": "tulsipada.in",
+      "href": "https://tulsipada.in",
+      "color": "text-purple-400"
+    }
+  ],
+  "socialLinks": [
+    {
+      "icon": "Github",
+      "label": "GitHub",
+      "href": "https://github.com/tulsipada",
+      "color": "hover:text-gray-400"
+    },
+    {
+      "icon": "Linkedin",
+      "label": "LinkedIn",
+      "href": "https://linkedin.com/in/tulsipada",
+      "color": "hover:text-blue-400"
+    }
+  ],
+  "availability": {
+    "status": "Available for Projects",
+    "description": "Currently accepting new client projects and open to full-time opportunities. Response time: Within 24 hours.",
+    "isAvailable": true
+  }
+}

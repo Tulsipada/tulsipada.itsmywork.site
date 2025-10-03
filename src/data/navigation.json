@@ -1,0 +1,48 @@
+{
+  "navItems": [
+    {
+      "name": "Home",
+      "href": "#hero"
+    },
+    {
+      "name": "About",
+      "href": "#about"
+    },
+    {
+      "name": "Experience",
+      "href": "#experience"
+    },
+    {
+      "name": "Projects",
+      "href": "#projects"
+    },
+    {
+      "name": "Contact",
+      "href": "#contact"
+    }
+  ],
+  "socialLinks": [
+    {
+      "name": "GitHub",
+      "href": "https://github.com/tulsipada",
+      "icon": "Github"
+    },
+    {
+      "name": "LinkedIn",
+      "href": "https://linkedin.com/in/tulsipada",
+      "icon": "Linkedin"
+    },
+    {
+      "name": "Email",
+      "href": "mailto:tulsipada55@gmail.com",
+      "icon": "Mail"
+    }
+  ],
+  "brand": {
+    "name": "Tulsipada Das",
+    "href": "#hero"
+  },
+  "mobileMenu": {
+    "title": "Connect with me"
+  }
+}

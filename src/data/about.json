@@ -1,0 +1,117 @@
+{
+  "title": "About Me",
+  "description": "A passionate Node.js developer with expertise in building secure, scalable applications. I specialize in payment systems, RESTful API design, and database management, achieving up to 98% accuracy in implementation.",
+  "experience": {
+    "title": "Experience & Expertise",
+    "currentFocus": {
+      "title": "🚀 Current Focus",
+      "description": "Building secure payment systems using Stripe API, designing RESTful APIs, and managing MySQL databases with Node.js expertise."
+    },
+    "achievements": {
+      "title": "🎯 Achievements",
+      "items": [
+        "98% accuracy in secure payment system implementation",
+        "90% proficiency in server-side JavaScript programming",
+        "Successfully delivered 5+ production applications",
+        "Expert in authentication systems (OAuth2/JWT)"
+      ]
+    },
+    "education": {
+      "title": "🎓 Education",
+      "degree": "B.Tech in Computer Science & Engineering",
+      "institution": "Ideal Institute of Engineering (2019-2022)"
+    }
+  },
+  "skills": [
+    {
+      "name": "JavaScript",
+      "category": "Language",
+      "icon": "Code"
+    },
+    {
+      "name": "Node.js",
+      "category": "Runtime",
+      "icon": "Server"
+    },
+    {
+      "name": "MongoDB",
+      "category": "Database",
+      "icon": "Database"
+    },
+    {
+      "name": "MySQL",
+      "category": "Database",
+      "icon": "Database"
+    },
+    {
+      "name": "RESTful APIs",
+      "category": "Backend",
+      "icon": "Server"
+    },
+    {
+      "name": "OAuth/JWT",
+      "category": "Security",
+      "icon": "Lock"
+    },
+    {
+      "name": "Docker",
+      "category": "DevOps",
+      "icon": "Server"
+    },
+    {
+      "name": "Git",
+      "category": "Version Control",
+      "icon": "Code"
+    },
+    {
+      "name": "Stripe API",
+      "category": "Payment",
+      "icon": "Lock"
+    },
+    {
+      "name": "Redis",
+      "category": "Cache",
+      "icon": "Database"
+    },
+    {
+      "name": "Loopback 4",
+      "category": "Framework",
+      "icon": "Server"
+    },
+    {
+      "name": "SQL",
+      "category": "Query Language",
+      "icon": "Database"
+    }
+  ],
+  "skillCategories": {
+    "Language": "bg-gradient-to-r from-primary to-primary-glow",
+    "Runtime": "bg-gradient-to-r from-accent to-accent-glow",
+    "Database": "bg-gradient-to-r from-green-500 to-green-400",
+    "Backend": "bg-gradient-to-r from-blue-500 to-blue-400",
+    "Security": "bg-gradient-to-r from-red-500 to-red-400",
+    "DevOps": "bg-gradient-to-r from-yellow-500 to-yellow-400",
+    "Version Control": "bg-gradient-to-r from-gray-500 to-gray-400",
+    "Payment": "bg-gradient-to-r from-purple-500 to-purple-400",
+    "Cache": "bg-gradient-to-r from-indigo-500 to-indigo-400",
+    "Framework": "bg-gradient-to-r from-pink-500 to-pink-400",
+    "Query Language": "bg-gradient-to-r from-teal-500 to-teal-400"
+  },
+  "languages": [
+    {
+      "name": "Bengali",
+      "flag": "🇮🇳",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "flag": "🇺🇸",
+      "level": "Professional"
+    },
+    {
+      "name": "Hindi",
+      "flag": "🇮🇳",
+      "level": "Native"
+    }
+  ]
+}

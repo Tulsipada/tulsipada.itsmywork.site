@@ -4,6 +4,8 @@ import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { CSS3DProfile } from "./ProfileImage3D";
 import profileImage from "@/assets/Tulsipada.avif";
+import personalData from "@/data/personal.json";
+import { calculateExperience, processDynamicText } from "@/lib/experience";
 
 // Lazy load Three.js components
 const ThreeJSBackground = lazy(() => import("./ThreeJSBackground"));
@@ -16,6 +18,12 @@ const CSSBackground = () => (
 );
 
 export const HeroSection = () => {
+  // Calculate dynamic experience
+  const experienceYears = calculateExperience(personalData.personalInfo.careerStartDate);
+  const dynamicDescription = processDynamicText(personalData.personalInfo.description, {
+    experience: experienceYears
+  });
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-24">
       {/* 3D Background with fallback */}
@@ -50,7 +58,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              Tulsipada Das
+              {personalData.personalInfo.name}
             </motion.h1>
             
             <motion.h2 
@@ -59,7 +67,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Node.js Developer
+              {personalData.personalInfo.title}
             </motion.h2>
             
             <motion.p 
@@ -68,8 +76,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              Passionate about creating cutting-edge solutions with Node.js, RESTful APIs, and secure payment systems. 
-              1+ years of experience building scalable applications.
+              {dynamicDescription}
             </motion.p>
           </div>
 
@@ -84,7 +91,7 @@ export const HeroSection = () => {
               className="bg-gradient-primary hover:shadow-glow transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               asChild
             >
-              <a href="mailto:tulsipada55@gmail.com">
+              <a href={personalData.personalInfo.email}>
                 <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 Contact Me
               </a>
@@ -96,7 +103,7 @@ export const HeroSection = () => {
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               asChild
             >
-              <a href="https://github.com/tulsipada" target="_blank" rel="noopener noreferrer">
+              <a href={personalData.socialLinks[0].href} target="_blank" rel="noopener noreferrer">
                 <Github className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 GitHub
               </a>
@@ -108,7 +115,7 @@ export const HeroSection = () => {
               className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               asChild
             >
-              <a href="https://linkedin.com/in/tulsipada" target="_blank" rel="noopener noreferrer">
+              <a href={personalData.socialLinks[1].href} target="_blank" rel="noopener noreferrer">
                 <Linkedin className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 LinkedIn
               </a>
@@ -122,7 +129,7 @@ export const HeroSection = () => {
             transition={{ delay: 1.2, duration: 0.8 }}
           >
             <p className="text-sm sm:text-base text-muted-foreground mb-4 px-2 sm:px-0">
-              📍 Tamluk, India • 📞 +917699283549
+              📍 {personalData.personalInfo.location} • 📞 {personalData.personalInfo.phone}
             </p>
             <ChevronDown className="mx-auto h-6 w-6 sm:h-8 sm:w-8 text-primary animate-bounce" />
           </motion.div>

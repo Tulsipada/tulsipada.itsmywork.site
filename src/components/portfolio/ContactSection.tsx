@@ -7,62 +7,34 @@ import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Globe, Github, Linkedin, Send } from "lucide-react";
 import { toast } from "sonner";
 import { memo } from "react";
+import contactData from "@/data/contact.json";
 
-// Removed Canvas and 3D components to prevent WebGL context conflicts
+// Icon mapping for dynamic imports
+const iconMap = {
+  Mail,
+  Phone,
+  MapPin,
+  Globe,
+  Github,
+  Linkedin,
+  Send
+};
 
-// Removed AnimatedSphere to prevent WebGL context conflicts
+const contactInfo = contactData.contactInfo.map(info => ({
+  ...info,
+  icon: iconMap[info.icon as keyof typeof iconMap]
+}));
 
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "tulsipada55@gmail.com",
-    href: "mailto:tulsipada55@gmail.com",
-    color: "text-blue-400"
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+91 7699283549",
-    href: "tel:+917699283549",
-    color: "text-green-400"
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Tamluk, India",
-    href: "https://maps.google.com/?q=Tamluk,India",
-    color: "text-red-400"
-  },
-  {
-    icon: Globe,
-    label: "Website",
-    value: "tulsipada.in",
-    href: "https://tulsipada.in",
-    color: "text-purple-400"
-  }
-];
-
-const socialLinks = [
-  {
-    icon: Github,
-    label: "GitHub",
-    href: "https://github.com/tulsipada",
-    color: "hover:text-gray-400"
-  },
-  {
-    icon: Linkedin,
-    label: "LinkedIn", 
-    href: "https://linkedin.com/in/tulsipada",
-    color: "hover:text-blue-400"
-  }
-];
+const socialLinks = contactData.socialLinks.map(social => ({
+  ...social,
+  icon: iconMap[social.icon as keyof typeof iconMap]
+}));
 
 const ContactSection = memo(() => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! I'll get back to you soon.", {
-      description: "Thank you for reaching out. I typically respond within 24 hours."
+    toast.success(contactData.form.successMessage.title, {
+      description: contactData.form.successMessage.description
     });
   };
 
@@ -103,11 +75,10 @@ const ContactSection = memo(() => {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-            Let's Work Together
+            {contactData.title}
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
-            Ready to bring your ideas to life? I'm always open to discussing new opportunities 
-            and innovative projects. Let's create something amazing together.
+            {contactData.description}
           </p>
         </motion.div>
 
@@ -123,50 +94,50 @@ const ContactSection = memo(() => {
               <CardHeader>
                 <CardTitle className="text-xl sm:text-2xl text-primary flex items-center gap-2">
                   <Send className="h-5 w-5 sm:h-6 sm:w-6" />
-                  Send Me a Message
+                  {contactData.form.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-sm sm:text-base">Name *</Label>
+                      <Label htmlFor="name" className="text-sm sm:text-base">{contactData.form.fields.name.label}</Label>
                       <Input 
                         id="name" 
-                        placeholder="Your full name" 
-                        required 
+                        placeholder={contactData.form.fields.name.placeholder}
+                        required={contactData.form.fields.name.required}
                         className="border-border/50 focus:border-primary text-sm sm:text-base"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-sm sm:text-base">Email *</Label>
+                      <Label htmlFor="email" className="text-sm sm:text-base">{contactData.form.fields.email.label}</Label>
                       <Input 
                         id="email" 
-                        type="email" 
-                        placeholder="your.email@example.com" 
-                        required 
+                        type={contactData.form.fields.email.type}
+                        placeholder={contactData.form.fields.email.placeholder}
+                        required={contactData.form.fields.email.required}
                         className="border-border/50 focus:border-primary text-sm sm:text-base"
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="subject" className="text-sm sm:text-base">Subject *</Label>
+                    <Label htmlFor="subject" className="text-sm sm:text-base">{contactData.form.fields.subject.label}</Label>
                     <Input 
                       id="subject" 
-                      placeholder="Project discussion, job opportunity, etc." 
-                      required 
+                      placeholder={contactData.form.fields.subject.placeholder}
+                      required={contactData.form.fields.subject.required}
                       className="border-border/50 focus:border-primary text-sm sm:text-base"
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="message" className="text-sm sm:text-base">Message *</Label>
+                    <Label htmlFor="message" className="text-sm sm:text-base">{contactData.form.fields.message.label}</Label>
                     <Textarea 
                       id="message" 
-                      placeholder="Tell me about your project, requirements, or any questions you have..."
-                      rows={6}
-                      required 
+                      placeholder={contactData.form.fields.message.placeholder}
+                      rows={contactData.form.fields.message.rows}
+                      required={contactData.form.fields.message.required}
                       className="border-border/50 focus:border-primary resize-none text-sm sm:text-base"
                     />
                   </div>
@@ -177,7 +148,7 @@ const ContactSection = memo(() => {
                     className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 hover:scale-[1.02]"
                   >
                     <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    Send Message
+                    {contactData.form.submitButton.text}
                   </Button>
                 </form>
               </CardContent>
@@ -261,11 +232,10 @@ const ContactSection = memo(() => {
                 <CardContent className="p-4 sm:p-6">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full animate-pulse" />
-                    <span className="font-semibold text-primary text-sm sm:text-base">Available for Projects</span>
+                    <span className="font-semibold text-primary text-sm sm:text-base">{contactData.availability.status}</span>
                   </div>
                   <p className="text-muted-foreground text-xs sm:text-sm">
-                    Currently accepting new client projects and open to full-time opportunities. 
-                    Response time: Within 24 hours.
+                    {contactData.availability.description}
                   </p>
                 </CardContent>
               </Card>
