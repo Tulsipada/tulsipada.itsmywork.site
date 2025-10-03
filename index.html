@@ -22,9 +22,9 @@
 
     <link rel="canonical" href="https://tulsipada.in" />
     
-    <!-- Critical CSS for above-the-fold content -->
+    <!-- Critical CSS for above-the-fold content - optimized -->
     <style>
-      /* Critical styles for initial render - optimized for LCP */
+      /* Critical styles for initial render - minimal CSS */
       body { 
         margin: 0; 
         font-family: system-ui, -apple-system, sans-serif; 
@@ -44,17 +44,6 @@
         overflow: hidden;
       }
       
-      /* Profile image critical styles */
-      .profile-image { 
-        width: 128px; 
-        height: 128px; 
-        border-radius: 50%; 
-        object-fit: cover; 
-        border: 2px solid rgba(79, 70, 229, 0.5);
-        display: block;
-        margin: 0 auto;
-      }
-      
       /* Hero title critical styles - LCP element */
       .hero-title { 
         font-size: 2rem; 
@@ -68,32 +57,15 @@
         line-height: 1.2;
       }
       
-      /* Responsive styles */
+      /* Responsive styles - minimal */
       @media (min-width: 640px) {
-        .profile-image { width: 160px; height: 160px; }
         .hero-title { font-size: 3rem; }
       }
       @media (min-width: 768px) {
-        .profile-image { width: 192px; height: 192px; }
         .hero-title { font-size: 4rem; }
       }
       @media (min-width: 1024px) {
         .hero-title { font-size: 5rem; }
-      }
-      
-      /* Loading states */
-      .loading-spinner {
-        width: 24px;
-        height: 24px;
-        border: 2px solid rgba(79, 70, 229, 0.3);
-        border-top: 2px solid #4f46e5;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
       }
     </style>
     
