@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, ExternalLink, Github, Heart, ShoppingCart, Users, Briefcase, GamepadIcon, Apple, Play, Smartphone, Globe, MapPin, Mail, Car } from "lucide-react";
+import { Calendar, ExternalLink, Github, Heart, ShoppingCart, Users, Briefcase, GamepadIcon, Apple, Play, Smartphone, Globe, MapPin, Mail, Car, Building } from "lucide-react";
 import projectsData from "@/data/projects.json";
 import { memo } from "react";
 
@@ -19,7 +19,8 @@ const iconMap = {
   Globe,
   MapPin,
   Mail,
-  Car
+  Car,
+  Building
 };
 
 const projects = projectsData.projects.map(project => ({
@@ -103,6 +104,7 @@ const ProjectsSection = memo(() => {
                                      project.color.includes('indigo') ? 'linear-gradient(to right, #4f46e5, #7c3aed)' :
                                      project.color.includes('violet') ? 'linear-gradient(to right, #7c3aed, #9333ea)' :
                                      project.color.includes('emerald') ? 'linear-gradient(to right, #059669, #0d9488)' :
+                                     project.color.includes('slate') ? 'linear-gradient(to right, #475569, #6b7280)' :
                                      'linear-gradient(to right, #dc2626, #db2777)'
                         }}
                   >

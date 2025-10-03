@@ -3,47 +3,67 @@
   "description": "A showcase of my recent work and projects",
   "projects": [
     {
-      "title": "Reboundate",
-      "period": "September 2022 - January 2023",
-      "description": "Designed and implemented a secure and scalable dating app featuring user authentication, intelligent swiping and matching algorithms, and real-time messaging.",
-      "icon": "Heart",
-      "type": "Mobile App",
-      "technologies": ["Node.js", "MySQL", "Real-time Messaging", "Authentication", "Matching Algorithms"],
+      "title": "Velocity",
+      "period": "January 2024 - August 2025",
+      "description": "Developing a comprehensive property management and real estate solutions platform featuring property listings, tenant management, maintenance tracking, and financial analytics for streamlined property operations.",
+      "icon": "Building",
+      "type": "Web Application",
+      "technologies": ["Node.js", "Property Management", "Real Estate Platform", "Tenant Management", "Financial Analytics"],
       "highlights": [
-        "Real-time chat implementation",
-        "Advanced matching algorithms"
+        "Advanced property listing and search system",
+        "Comprehensive tenant and lease management",
+        "Automated maintenance tracking and scheduling",
+        "Financial reporting and analytics dashboard"
       ],
-      "color": "bg-gradient-to-r from-red-600 to-pink-600",
+      "color": "bg-gradient-to-r from-slate-600 to-gray-600",
       "links": [
         {
-          "name": "App Store",
-          "url": "https://apps.apple.com/us/app/reboundate-life-after-breakup/id1548712113",
-          "icon": "Apple"
-        },
-        {
-          "name": "Google Play",
-          "url": "https://play.google.com/store/apps/details?id=com.reboundate",
-          "icon": "Play"
+          "name": "Website",
+          "url": "https://velocitypropertysolutions.io/",
+          "icon": "Globe"
         }
       ]
     },
     {
-      "title": "CrewResume",
-      "period": "August 2022 - December 2022",
-      "description": "Developed and implemented the backend infrastructure of a comprehensive job searching portal focused on resume management and candidate screening.",
-      "icon": "Briefcase",
+      "title": "CineSaga",
+      "period": "August 2024 - Present",
+      "description": "Developing a comprehensive OTT (Over-The-Top) streaming platform featuring movie and series streaming, user subscriptions, content management, and personalized recommendations for seamless entertainment experiences.",
+      "icon": "Play",
       "type": "Web Application",
-      "technologies": ["Node.js", "Resume Management", "Job Portal", "Scalable Architecture"],
+      "technologies": ["Node.js", "OTT Platform", "Streaming Technology", "Subscription Management", "Content Delivery"],
       "highlights": [
-        "Scalable resume parsing system",
-        "Advanced search and filtering",
-        "Efficient candidate management"
+        "Advanced video streaming and content delivery system",
+        "Comprehensive subscription and payment management",
+        "Personalized content recommendations and user profiles",
+        "Multi-device streaming support and offline downloads"
       ],
-      "color": "bg-gradient-to-r from-blue-600 to-emerald-600",
+      "color": "bg-gradient-to-r from-violet-600 to-purple-600",
       "links": [
         {
           "name": "Website",
-          "url": "https://crewresumes.com/",
+          "url": "https://cinesaga.in/",
+          "icon": "Globe"
+        }
+      ]
+    },
+    {
+      "title": "FreeTheMarket",
+      "period": "October 2023 - February 2024",
+      "description": "Developed a comprehensive rideshare platform featuring driver-rider matching, real-time tracking, fare calculation, payment processing, and route optimization for seamless transportation experiences.",
+      "icon": "Car",
+      "type": "Web Application",
+      "technologies": ["Node.js", "Rideshare Platform", "Real-time Tracking", "Payment Processing", "Route Optimization"],
+      "highlights": [
+        "Advanced driver-rider matching algorithm",
+        "Real-time GPS tracking and route optimization",
+        "Secure payment processing and fare calculation",
+        "Comprehensive rating and review system"
+      ],
+      "color": "bg-gradient-to-r from-emerald-600 to-teal-600",
+      "links": [
+        {
+          "name": "Website",
+          "url": "https://freethemarket-rideshare.com/",
           "icon": "Globe"
         }
       ]
@@ -93,45 +113,47 @@
       ]
     },
     {
-      "title": "CineSaga",
-      "period": "August 2024 - Present",
-      "description": "Developing a comprehensive OTT (Over-The-Top) streaming platform featuring movie and series streaming, user subscriptions, content management, and personalized recommendations for seamless entertainment experiences.",
-      "icon": "Play",
-      "type": "Web Application",
-      "technologies": ["Node.js", "OTT Platform", "Streaming Technology", "Subscription Management", "Content Delivery"],
+      "title": "Reboundate",
+      "period": "September 2022 - January 2023",
+      "description": "Designed and implemented a secure and scalable dating app featuring user authentication, intelligent swiping and matching algorithms, and real-time messaging.",
+      "icon": "Heart",
+      "type": "Mobile App",
+      "technologies": ["Node.js", "MySQL", "Real-time Messaging", "Authentication", "Matching Algorithms"],
       "highlights": [
-        "Advanced video streaming and content delivery system",
-        "Comprehensive subscription and payment management",
-        "Personalized content recommendations and user profiles",
-        "Multi-device streaming support and offline downloads"
+        "Real-time chat implementation",
+        "Advanced matching algorithms"
       ],
-      "color": "bg-gradient-to-r from-violet-600 to-purple-600",
+      "color": "bg-gradient-to-r from-red-600 to-pink-600",
       "links": [
         {
-          "name": "Website",
-          "url": "https://cinesaga.in/",
-          "icon": "Globe"
+          "name": "App Store",
+          "url": "https://apps.apple.com/us/app/reboundate-life-after-breakup/id1548712113",
+          "icon": "Apple"
+        },
+        {
+          "name": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.reboundate",
+          "icon": "Play"
         }
       ]
     },
     {
-      "title": "FreeTheMarket",
-      "period": "October 2023 - February 2024",
-      "description": "Developed a comprehensive rideshare platform featuring driver-rider matching, real-time tracking, fare calculation, payment processing, and route optimization for seamless transportation experiences.",
-      "icon": "Car",
+      "title": "CrewResume",
+      "period": "August 2022 - December 2022",
+      "description": "Developed and implemented the backend infrastructure of a comprehensive job searching portal focused on resume management and candidate screening.",
+      "icon": "Briefcase",
       "type": "Web Application",
-      "technologies": ["Node.js", "Rideshare Platform", "Real-time Tracking", "Payment Processing", "Route Optimization"],
+      "technologies": ["Node.js", "Resume Management", "Job Portal", "Scalable Architecture"],
       "highlights": [
-        "Advanced driver-rider matching algorithm",
-        "Real-time GPS tracking and route optimization",
-        "Secure payment processing and fare calculation",
-        "Comprehensive rating and review system"
+        "Scalable resume parsing system",
+        "Advanced search and filtering",
+        "Efficient candidate management"
       ],
-      "color": "bg-gradient-to-r from-emerald-600 to-teal-600",
+      "color": "bg-gradient-to-r from-blue-600 to-emerald-600",
       "links": [
         {
           "name": "Website",
-          "url": "https://freethemarket-rideshare.com/",
+          "url": "https://crewresumes.com/",
           "icon": "Globe"
         }
       ]
