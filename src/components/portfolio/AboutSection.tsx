@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code, Server, Database, Lock } from "lucide-react";
+import { memo } from "react";
 
 const skills = [
   { name: "JavaScript", category: "Language", icon: Code },
@@ -53,7 +54,7 @@ const itemVariants = {
   }
 };
 
-export const AboutSection = () => {
+const AboutSection = memo(() => {
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-6xl mx-auto">
@@ -177,4 +178,8 @@ export const AboutSection = () => {
       </div>
     </section>
   );
-};
+});
+
+AboutSection.displayName = 'AboutSection';
+
+export { AboutSection };

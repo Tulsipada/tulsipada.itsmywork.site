@@ -1,9 +1,19 @@
+import { lazy, Suspense } from "react";
 import { HeroSection } from "@/components/portfolio/HeroSection";
-import { AboutSection } from "@/components/portfolio/AboutSection";
-import { ExperienceSection } from "@/components/portfolio/ExperienceSection";
-import { ProjectsSection } from "@/components/portfolio/ProjectsSection";
-import { ContactSection } from "@/components/portfolio/ContactSection";
 import { Navbar } from "@/components/portfolio/Navbar";
+
+// Lazy load sections for better performance
+const AboutSection = lazy(() => import("@/components/portfolio/AboutSection").then(module => ({ default: module.AboutSection })));
+const ExperienceSection = lazy(() => import("@/components/portfolio/ExperienceSection").then(module => ({ default: module.ExperienceSection })));
+const ProjectsSection = lazy(() => import("@/components/portfolio/ProjectsSection").then(module => ({ default: module.ProjectsSection })));
+const ContactSection = lazy(() => import("@/components/portfolio/ContactSection").then(module => ({ default: module.ContactSection })));
+
+// Loading component for lazy sections
+const SectionLoader = () => (
+  <div className="flex items-center justify-center py-24">
+    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 const Index = () => {
   return (
@@ -14,16 +24,24 @@ const Index = () => {
           <HeroSection />
         </section>
         <section id="about" className="pt-24">
-          <AboutSection />
+          <Suspense fallback={<SectionLoader />}>
+            <AboutSection />
+          </Suspense>
         </section>
         <section id="experience" className="pt-24">
-          <ExperienceSection />
+          <Suspense fallback={<SectionLoader />}>
+            <ExperienceSection />
+          </Suspense>
         </section>
         <section id="projects" className="pt-24">
-          <ProjectsSection />
+          <Suspense fallback={<SectionLoader />}>
+            <ProjectsSection />
+          </Suspense>
         </section>
         <section id="contact" className="pt-24">
-          <ContactSection />
+          <Suspense fallback={<SectionLoader />}>
+            <ContactSection />
+          </Suspense>
         </section>
       </main>
     </>

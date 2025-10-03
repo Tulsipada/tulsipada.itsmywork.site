@@ -50,6 +50,8 @@ export function CSS3DProfile({ imageUrl }: CSS3DProfileProps) {
             src={imageUrl}
             alt="Tulsipada Das - Node.js Developer"
             className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
             onLoad={() => setIsLoaded(true)}
             onError={() => console.error('Failed to load profile image')}
           />

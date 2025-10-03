@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Building } from "lucide-react";
+import { memo } from "react";
 
 const experiences = [
   {
@@ -58,7 +59,7 @@ const cardVariants = {
   }
 };
 
-export const ExperienceSection = () => {
+const ExperienceSection = memo(() => {
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-secondary/20 to-background">
       <div className="max-w-6xl mx-auto">
@@ -177,4 +178,8 @@ export const ExperienceSection = () => {
       </div>
     </section>
   );
-};
+});
+
+ExperienceSection.displayName = 'ExperienceSection';
+
+export { ExperienceSection };

@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Globe, Github, Linkedin, Send } from "lucide-react";
 import { toast } from "sonner";
+import { memo } from "react";
 
 // Removed Canvas and 3D components to prevent WebGL context conflicts
 
@@ -57,7 +58,7 @@ const socialLinks = [
   }
 ];
 
-export const ContactSection = () => {
+const ContactSection = memo(() => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Message sent! I'll get back to you soon.", {
@@ -274,4 +275,8 @@ export const ContactSection = () => {
       </div>
     </section>
   );
-};
+});
+
+ContactSection.displayName = 'ContactSection';
+
+export { ContactSection };

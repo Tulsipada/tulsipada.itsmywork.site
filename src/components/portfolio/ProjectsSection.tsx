@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, ExternalLink, Github, Heart, ShoppingCart, Users, Briefcase, GamepadIcon } from "lucide-react";
+import { memo } from "react";
 
 const projects = [
   {
@@ -94,7 +95,7 @@ const cardVariants = {
   }
 };
 
-export const ProjectsSection = () => {
+const ProjectsSection = memo(() => {
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -240,4 +241,8 @@ export const ProjectsSection = () => {
       </div>
     </section>
   );
-};
+});
+
+ProjectsSection.displayName = 'ProjectsSection';
+
+export { ProjectsSection };
